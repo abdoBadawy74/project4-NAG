@@ -20,12 +20,14 @@ export default function Regiser() {
     e.preventDefault();
     console.log(form);
     try {
-      await axios.post(`${BaseURL}/${REGISTER}`, form).then((res) => {
-        console.log(res);
-        alert("User Registered Successfully");
-      }).catch((err) => {
-        console.log(err);
-        
+      await axios
+        .post(`${BaseURL}/${REGISTER}`, form)
+        .then((res) => {
+          console.log(res);
+          alert("User Registered Successfully");
+        })
+        .catch((err) => {
+          console.log(err);
         });
     } catch (err) {
       console.log(err);
