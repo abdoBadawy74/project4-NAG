@@ -83,7 +83,7 @@ export default function Regiser() {
                 Password
               </label>
             </div>
-            <button type="submit" className="btn btn-primary w-100">
+            <button type="submit" className="btn">
               Register
             </button>
           </div>
