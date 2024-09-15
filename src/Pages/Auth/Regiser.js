@@ -9,6 +9,7 @@ export default function Regiser() {
     email: "",
     password: "",
   });
+  const [error, setError] = useState("");
 
   // Function to handle form change
   const handleFormChange = (e) => {
@@ -20,17 +21,17 @@ export default function Regiser() {
     e.preventDefault();
     console.log(form);
     try {
-      await axios
-        .post(`${BaseURL}/${REGISTER}`, form)
-        .then((res) => {
-          console.log(res);
-          alert("User Registered Successfully");
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      await axios.post(`${BaseURL}/${REGISTER}`, form).then((res) => {
+        console.log(res);
+        window.location.pathname = "/";
+      });
     } catch (err) {
       console.log(err);
+      if (err.response.status === 422) {
+        setError("Email already been taken");
+      } else {
+        setError("Internal Server Error");
+      }
     }
   }
   return (
@@ -86,6 +87,7 @@ export default function Regiser() {
             <button type="submit" className="btn">
               Register
             </button>
+            {error && <p className="error">{error}</p>}
           </div>
         </form>
       </div>
