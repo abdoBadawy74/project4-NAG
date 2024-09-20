@@ -5,6 +5,7 @@ import "./Css/Components/Form.css"
 import "./Css/Base/media.css"
 import "./Css/Components/Button.css"
 import "./Css/Components/alerts.css"
+import "./Css/Components/Loading.css"
 import App from "./App";
 import { BrowserRouter as Router } from "react-router-dom";
 
