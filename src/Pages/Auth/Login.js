@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { BaseURL, LOGIN } from "../../Api/Api";
 import Loading from "../../Components/Loading/Loading";
+import Cookie from "cookie-universal";
 
 export default function Login() {
   // States for the form
@@ -9,6 +10,10 @@ export default function Login() {
     email: "",
     password: "",
   });
+
+  // Cookies
+  const cookie = Cookie();
+
   // State for error
   const [error, setError] = useState("");
 
@@ -29,7 +34,9 @@ export default function Login() {
       await axios.post(`${BaseURL}/${LOGIN}`, form).then((res) => {
         console.log(res);
         setLoading(false);
-        // window.location.pathname = "/";
+        const token = res.data.token;
+        cookie.set("e-commerce", token);
+        window.location.pathname = "/";
       });
     } catch (err) {
       console.log(err);

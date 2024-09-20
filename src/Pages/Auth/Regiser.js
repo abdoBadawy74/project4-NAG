@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { BaseURL, REGISTER } from "../../Api/Api";
 import Loading from "../../Components/Loading/Loading";
+import Cookie from "cookie-universal";
 
 export default function Regiser() {
   // States for the form
@@ -10,6 +11,8 @@ export default function Regiser() {
     email: "",
     password: "",
   });
+    // Cookies
+    const cookie = Cookie();
   // State for error
   const [error, setError] = useState("");
 
@@ -30,6 +33,8 @@ export default function Regiser() {
       await axios.post(`${BaseURL}/${REGISTER}`, form).then((res) => {
         console.log(res);
         setLoading(false);
+        const token = res.data.token;
+        cookie.set("e-commerce", token);
         window.location.pathname = "/";
       });
     } catch (err) {
