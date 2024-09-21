@@ -35,7 +35,7 @@ export default function Regiser() {
         setLoading(false);
         const token = res.data.token;
         cookie.set("e-commerce", token);
-        window.location.pathname = "/";
+        window.location.pathname = "/users";
       });
     } catch (err) {
       console.log(err);
