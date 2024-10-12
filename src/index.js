@@ -1,11 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import "./Css/Components/Form.css"
-import "./Css/Base/media.css"
-import "./Css/Components/Button.css"
-import "./Css/Components/alerts.css"
-import "./Css/Components/Loading.css"
+import "./Css/Components/Button.css";
+import "./Css/Components/alerts.css";
+import "./Css/Components/Loading.css";
+import "./Pages/Auth/Auth.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+
 import App from "./App";
 import { BrowserRouter as Router } from "react-router-dom";
 
