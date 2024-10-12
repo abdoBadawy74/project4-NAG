@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import { BaseURL, LOGIN } from "../../Api/Api";
 import Loading from "../../Components/Loading/Loading";
 import Cookie from "cookie-universal";
+import "../../Css/Components/googl.css";
+import google from "../../images/googl.png";
 
 export default function Login() {
   // States for the form
@@ -86,8 +88,26 @@ export default function Login() {
                 </label>
               </div>
               <button type="submit" className="btn">
-                Register
+                Login
               </button>
+
+              <div className="google-btn">
+                <a href={`http://127.0.0.1:8000/login-google`}>
+                  <div className="google-icon-wrapper">
+                    <img
+                      className="google-icon"
+                      src={google}
+                      alt="google-icon"
+                      width={42}
+                      height={42}
+                    />
+                  </div>
+                  <p className="btn-text">
+                    <b>Sign in with google</b>
+                  </p>
+                </a>
+              </div>
+
               {error && <p className="error">{error}</p>}
             </div>
           </form>
