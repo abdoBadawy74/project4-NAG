@@ -19,5 +19,7 @@ export default function Users() {
         console.log(err);
       });
   }, []);
-  return <div>Users page</div>;
+  return <>
+  <div>Users page</div>
+  </>;
 }
