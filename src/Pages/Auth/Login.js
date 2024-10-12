@@ -5,6 +5,7 @@ import Loading from "../../Components/Loading/Loading";
 import Cookie from "cookie-universal";
 import "../../Css/Components/googl.css";
 import google from "../../images/googl.png";
+import Form from "react-bootstrap/Form";
 
 export default function Login() {
   // States for the form
@@ -24,7 +25,7 @@ export default function Login() {
 
   // Function to handle form change
   const handleFormChange = (e) => {
-    setForm({ ...form, [e.target.id]: e.target.value });
+    setForm({ ...form, [e.target.name]: e.target.value });
   };
 
   // Function to handle form submit
@@ -54,28 +55,39 @@ export default function Login() {
     <>
       {loading && <Loading />}
       <div className="container">
-        <div className="row h-100">
-          <form className="form " onSubmit={handleFormSubmit}>
-            <h1 className="text-center">Login Now</h1>
+        <div
+          className="row"
+          style={{
+            height: "100vh",
+          }}
+        >
+          <Form className="form " onSubmit={handleFormSubmit}>
+            <h1>Login Now</h1>
             <div className="custom-form">
-              <div className="form-control">
-                <input
+              <Form.Group
+                className="form-custom"
+                controlId="exampleForm.ControlInput1"
+              >
+                <Form.Control
                   type="email"
-                  id="email"
+                  name="email"
                   className="form-control"
                   placeholder="Enter your Email.."
                   value={form.email}
                   onChange={handleFormChange}
                   required
                 />
-                <label htmlFor="email" className="form-label">
-                  Email
-                </label>
-              </div>
-              <div className="form-control">
-                <input
+                <Form.Label>Email </Form.Label>
+              </Form.Group>
+
+              <Form.Group
+                className="form-custom"
+                controlId="exampleForm.ControlInput2  "
+              >
+                <Form.Control
                   type="password"
-                  id="password"
+                  // id="password"
+                  name="password"
                   className="form-control"
                   placeholder="Enter your password.."
                   value={form.password}
@@ -83,11 +95,10 @@ export default function Login() {
                   required
                   minLength={6}
                 />
-                <label htmlFor="password" className="form-label">
-                  Password
-                </label>
-              </div>
-              <button type="submit" className="btn">
+                <Form.Label>Password </Form.Label>
+              </Form.Group>
+
+              <button type="submit" className="btn btn-success">
                 Login
               </button>
 
@@ -110,7 +121,7 @@ export default function Login() {
 
               {error && <p className="error">{error}</p>}
             </div>
-          </form>
+          </Form>
         </div>
       </div>
     </>

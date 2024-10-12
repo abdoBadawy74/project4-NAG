@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import { BaseURL, REGISTER } from "../../Api/Api";
 import Loading from "../../Components/Loading/Loading";
 import Cookie from "cookie-universal";
+import google from "../../images/googl.png";
+import Form from "react-bootstrap/Form";
 
 export default function Regiser() {
   // States for the form
@@ -11,8 +13,8 @@ export default function Regiser() {
     email: "",
     password: "",
   });
-    // Cookies
-    const cookie = Cookie();
+  // Cookies
+  const cookie = Cookie();
   // State for error
   const [error, setError] = useState("");
 
@@ -21,7 +23,7 @@ export default function Regiser() {
 
   // Function to handle form change
   const handleFormChange = (e) => {
-    setForm({ ...form, [e.target.id]: e.target.value });
+    setForm({ ...form, [e.target.name]: e.target.value });
   };
 
   // Function to handle form submit
@@ -51,43 +53,55 @@ export default function Regiser() {
     <>
       {loading && <Loading />}
       <div className="container">
-        <div className="row h-100">
-          <form className="form " onSubmit={handleFormSubmit}>
-            <h1 className="text-center">Register Now</h1>
+        <div
+          className="row"
+          style={{
+            height: "100vh",
+          }}
+        >
+          <Form className="form " onSubmit={handleFormSubmit}>
+            <h1>Register Now</h1>
             <div className="custom-form">
-              <div className="form-control">
-                <input
+              <Form.Group
+                className="form-custom"
+                controlId="exampleForm.ControlInput1"
+              >
+                <Form.Control
                   type="text"
-                  id="name"
+                  name="name"
                   className="form-control"
                   placeholder="Enter your Name.."
                   value={form.name}
                   onChange={handleFormChange}
                   required
                 />
-                <label htmlFor="name" className="form-label">
-                  Name
-                </label>
-              </div>
+                <Form.Label>Name </Form.Label>
+              </Form.Group>
 
-              <div className="form-control">
-                <input
+              <Form.Group
+                className="form-custom"
+                controlId="exampleForm.ControlInput2"
+              >
+                <Form.Control
                   type="email"
-                  id="email"
+                  name="email"
                   className="form-control"
                   placeholder="Enter your Email.."
                   value={form.email}
                   onChange={handleFormChange}
                   required
                 />
-                <label htmlFor="email" className="form-label">
-                  Email
-                </label>
-              </div>
-              <div className="form-control">
-                <input
+                <Form.Label>Email </Form.Label>
+              </Form.Group>
+
+              <Form.Group
+                className="form-custom"
+                controlId="exampleForm.ControlInput3"
+              >
+                <Form.Control
                   type="password"
-                  id="password"
+                  // id="password"
+                  name="password"
                   className="form-control"
                   placeholder="Enter your password.."
                   value={form.password}
@@ -95,16 +109,33 @@ export default function Regiser() {
                   required
                   minLength={6}
                 />
-                <label htmlFor="password" className="form-label">
-                  Password
-                </label>
-              </div>
-              <button type="submit" className="btn">
-                Register
+                <Form.Label>Password </Form.Label>
+              </Form.Group>
+
+              <button type="submit" className="btn btn-success">
+                Login
               </button>
+
+              <div className="google-btn">
+                <a href={`http://127.0.0.1:8000/login-google`}>
+                  <div className="google-icon-wrapper">
+                    <img
+                      className="google-icon"
+                      src={google}
+                      alt="google-icon"
+                      width={42}
+                      height={42}
+                    />
+                  </div>
+                  <p className="btn-text">
+                    <b>Sign in with google</b>
+                  </p>
+                </a>
+              </div>
+
               {error && <p className="error">{error}</p>}
             </div>
-          </form>
+          </Form>
         </div>
       </div>
     </>
