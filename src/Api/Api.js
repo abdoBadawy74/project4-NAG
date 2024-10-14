@@ -9,6 +9,7 @@ export const LOGOUT = "logout";
 
 // users
 export const USERS = "users";
+export const USER = "user";
 
 
 // Google Auth
