@@ -9,3 +9,7 @@ export const LOGOUT = "logout";
 
 // users
 export const USERS = "users";
+
+
+// Google Auth
+export const GOOGLE_CALLBACK = "auth/google/callback";

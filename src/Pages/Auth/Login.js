@@ -61,8 +61,8 @@ export default function Login() {
             height: "100vh",
           }}
         >
-          <Form className="form " onSubmit={handleFormSubmit}>
-            <h1>Login Now</h1>
+          <Form className="form" onSubmit={handleFormSubmit}>
+            <h1 className="my-4">Login Now</h1>
             <div className="custom-form">
               <Form.Group
                 className="form-custom"

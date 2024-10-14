@@ -60,7 +60,7 @@ export default function Regiser() {
           }}
         >
           <Form className="form " onSubmit={handleFormSubmit}>
-            <h1>Register Now</h1>
+            <h1 className="mb-4">Register Now</h1>
             <div className="custom-form">
               <Form.Group
                 className="form-custom"
@@ -113,7 +113,7 @@ export default function Regiser() {
               </Form.Group>
 
               <button type="submit" className="btn btn-success">
-                Login
+                Register
               </button>
 
               <div className="google-btn">
