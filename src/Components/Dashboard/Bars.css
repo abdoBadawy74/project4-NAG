@@ -13,7 +13,7 @@
 .side-bar {
   background-color: #fff;
   height: 100vh;
-  position: fixed;
+  position: sticky;
   top: 70px;
   left: 0;
   z-index: 1;
