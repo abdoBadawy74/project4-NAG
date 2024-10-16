@@ -4,6 +4,7 @@ import Cookie from "cookie-universal";
 import axios from "axios";
 import { BaseURL, USER } from "../../Api/Api";
 import Loading from "../../Components/Loading/Loading";
+import { Axios } from "../../Api/axios";
 
 export default function RequireAuth() {
   const navigate = useNavigate();
@@ -11,12 +12,8 @@ export default function RequireAuth() {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    axios
-      .get(`${BaseURL}/${USER}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+    Axios
+      .get(`/${USER}`)
       .then((res) => {
         console.log(res.data);
         setUser(res.data);
