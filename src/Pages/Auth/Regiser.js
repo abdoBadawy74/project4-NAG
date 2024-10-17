@@ -5,6 +5,7 @@ import Loading from "../../Components/Loading/Loading";
 import Cookie from "cookie-universal";
 import google from "../../images/googl.png";
 import Form from "react-bootstrap/Form";
+import { useNavigate } from "react-router-dom";
 
 export default function Regiser() {
   // States for the form
@@ -13,6 +14,8 @@ export default function Regiser() {
     email: "",
     password: "",
   });
+  const navigate= useNavigate();
+
   // Cookies
   const cookie = Cookie();
   // State for error
@@ -37,7 +40,7 @@ export default function Regiser() {
         setLoading(false);
         const token = res.data.token;
         cookie.set("e-commerce", token);
-        window.location.pathname = "/users";
+        navigate("/", { replace: true });
       });
     } catch (err) {
       console.log(err);

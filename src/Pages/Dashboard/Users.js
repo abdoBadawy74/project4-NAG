@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { USERS } from "../../Api/Api";
+import { USERS, USER } from "../../Api/Api";
 import { Table } from "react-bootstrap";
 import { Axios } from "../../Api/axios";
 import { Link } from "react-router-dom";
@@ -8,6 +8,21 @@ import { faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 export default function Users() {
   const [users, setUsers] = useState([]);
+  const [currentUser, setCurrentUser] = useState({});
+  const [deleteUser, setDeleteUser] = useState(false);
+  const [noUsers, setNoUsers] = useState(false);
+
+  // get current user
+  useEffect(() => {
+    Axios.get(`${USER}`)
+      .then((res) => {
+        console.log(res.data);
+        setCurrentUser(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   // get all users
   useEffect(() => {
@@ -16,14 +31,27 @@ export default function Users() {
         console.log(res);
         setUsers(res.data);
       })
+      .then(() => {
+        setNoUsers(true);
+      })
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [deleteUser]);
+
+  // filter current user
+  const filterUsers = users.filter((user) => user.id !== currentUser.id);
 
   // handle delete user function
-
-  const handleDelete = (id) => {};
+  async function handleDelete(id) {
+    try {
+      const res = await Axios.delete(`${USER}/${id}`);
+      setDeleteUser(!deleteUser);
+      console.log(res);
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
   return (
     <div className="bg-white w-100 p-2">
@@ -37,27 +65,40 @@ export default function Users() {
           </tr>
         </thead>
         <tbody>
-          {users.map((user) => (
-            <tr
-              key={user.id}
-              className="p-0"
-              style={{
-                lineHeight: "2.5",
-              }}
-            >
-              <td>{user.id}</td>
-              <td>{user.name}</td>
-              <td>{user.email}</td>
-              <td className="d-flex justify-content-center gap-4">
-                <Link to={`${user.id}`} className="btn btn-success">
-                  Edit <FontAwesomeIcon icon={faPenToSquare} />
-                </Link>
-                <button className="btn btn-danger" onClick={handleDelete}>
-                  Delete <FontAwesomeIcon icon={faTrash} />
-                </button>
-              </td>
+          {users.length === 0 ? (
+            <tr className="text-center fs-3">
+              <td colSpan="4">Loading...</td>
             </tr>
-          ))}
+          ) : users.length <= 1 && noUsers ? (
+            <tr className="text-center fs-3">
+              <td colSpan="4">No Users Found !</td>
+            </tr>
+          ) : (
+            filterUsers.map((user) => (
+              <tr
+                key={user.id}
+                className="p-0"
+                style={{
+                  lineHeight: "2.5",
+                }}
+              >
+                <td>{user.id}</td>
+                <td>{user.name}</td>
+                <td>{user.email}</td>
+                <td className="d-flex justify-content-center gap-4">
+                  <Link to={`${user.id}`} className="btn btn-success">
+                    Edit <FontAwesomeIcon icon={faPenToSquare} />
+                  </Link>
+                  <button
+                    className="btn btn-danger"
+                    onClick={() => handleDelete(user.id)}
+                  >
+                    Delete <FontAwesomeIcon icon={faTrash} />
+                  </button>
+                </td>
+              </tr>
+            ))
+          )}
         </tbody>
       </Table>
     </div>

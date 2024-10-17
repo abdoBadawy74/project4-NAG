@@ -50,7 +50,7 @@ export default function User() {
   //   console.log(email);
 
   return (
-    <div>
+    <>
       {loading && <Loading />}
       <Form className="bg-white w-100 mx-2 p-3" onSubmit={handleSubmit}>
         <h2 className="my-3">Update User</h2>
@@ -77,6 +77,6 @@ export default function User() {
           Save Edits
         </button>
       </Form>
-    </div>
+    </>
   );
 }
