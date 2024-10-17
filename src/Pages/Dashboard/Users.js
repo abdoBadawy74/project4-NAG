@@ -55,6 +55,14 @@ export default function Users() {
 
   return (
     <div className="bg-white w-100 p-2">
+
+    <div className="d-flex align-items-center justify-content-between my-3">
+        <h2 className="text-center">Users</h2>
+        <Link to="/dashboard/users/add" className="btn btn-primary">
+          Add User
+        </Link>
+    </div>
+
       <Table striped bordered hover className="text-center">
         <thead>
           <tr>
