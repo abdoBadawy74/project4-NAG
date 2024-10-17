@@ -7,6 +7,7 @@ import Loading from "../../Components/Loading/Loading";
 export default function User() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [role, setRole] = useState("");
   const [disabled, setDisabled] = useState(true);
   const [loading, setLoading] = useState(false);
 
@@ -21,6 +22,7 @@ export default function User() {
         console.log(res.data);
         setName(res.data.name);
         setEmail(res.data.email);
+        setRole(res.data.role);
       })
       .finally(() => {
         setDisabled(false);
@@ -38,6 +40,7 @@ export default function User() {
       const res = await Axios.post(`${USER}/edit/${id}`, {
         name,
         email,
+        role,
       });
       console.log(res);
       window.location.replace("/dashboard/users");
@@ -73,6 +76,22 @@ export default function User() {
             onChange={(e) => setEmail(() => e.target.value)}
           />
         </Form.Group>
+
+        <Form.Group className="mb-3" controlId="exampleForm.ControlInput3">
+          <Form.Label>Role</Form.Label>
+          <Form.Select
+            value={role}
+            onChange={(e) => setRole(() => e.target.value)}
+          >
+            <option disabled value={""}>
+              Select Role
+            </option>
+            <option value="1995">Admin</option>
+            <option value="2001">User</option>
+            <option value="1996">Writer</option>
+          </Form.Select>
+        </Form.Group>
+
         <button className="btn btn-primary" disabled={disabled}>
           Save Edits
         </button>

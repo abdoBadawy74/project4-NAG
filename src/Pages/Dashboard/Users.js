@@ -61,17 +61,18 @@ export default function Users() {
             <th>Id</th>
             <th>Username</th>
             <th>Email</th>
+            <th>Role</th>
             <th>Action</th>
           </tr>
         </thead>
         <tbody>
           {users.length === 0 ? (
             <tr className="text-center fs-3">
-              <td colSpan="4">Loading...</td>
+              <td colSpan="12">Loading...</td>
             </tr>
           ) : users.length <= 1 && noUsers ? (
             <tr className="text-center fs-3">
-              <td colSpan="4">No Users Found !</td>
+              <td colSpan="12">No Users Found !</td>
             </tr>
           ) : (
             filterUsers.map((user) => (
@@ -85,6 +86,13 @@ export default function Users() {
                 <td>{user.id}</td>
                 <td>{user.name}</td>
                 <td>{user.email}</td>
+                <td>
+                  {user.role === "1995"
+                    ? "admin"
+                    : user.role === "2001"
+                    ? "User"
+                    : "Writer"}
+                </td>
                 <td className="d-flex justify-content-center gap-4">
                   <Link to={`${user.id}`} className="btn btn-success">
                     Edit <FontAwesomeIcon icon={faPenToSquare} />
