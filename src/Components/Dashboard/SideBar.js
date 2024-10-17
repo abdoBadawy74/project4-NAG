@@ -12,27 +12,47 @@ export default function SideBar() {
   const windowSize = useContext(WindowSize);
   console.log(windowSize.windowSize);
   return (
-    <div
-      className="side-bar"
-      style={{
-        left: windowSize.windowSize < "768" ? (isOpen ? "0" : "-220px") : "0",
-        width: isOpen ? "220px" : "fit-content",
-      }}
-    >
-      <NavLink
-        to="users"
-        className={"d-flex align-items-center gap-2 side-bar-link"}
+    <div>
+      <div
+        style={{
+          position: "fixed",
+          top: "70px",
+          left: 0,
+          width: "100%",
+          height: "100vh",
+          backgroundColor: "rgba(0,0,0,0.5)",
+          display:
+            windowSize.windowSize < "768"
+              ? isOpen
+                ? "block"
+                : "none"
+              : "none",
+        }}
+      ></div>
+
+      <div
+        className="side-bar"
+        style={{
+          left: windowSize.windowSize < "768" ? (isOpen ? "0" : "-220px") : "0",
+          width: isOpen ? "220px" : "fit-content",
+          position: windowSize.windowSize < "768" ? "fixed" : "sticky",
+        }}
       >
-        <FontAwesomeIcon
-          style={{
-            padding: isOpen ? "10px 8 10px 15px" : "10px 8px",
-          }}
-          icon={faUsers}
-        />
-        <p className="m-0" style={{ display: isOpen ? "block" : "none" }}>
-          Users
-        </p>
-      </NavLink>
+        <NavLink
+          to="users"
+          className={"d-flex align-items-center gap-2 side-bar-link"}
+        >
+          <FontAwesomeIcon
+            style={{
+              padding: isOpen ? "10px 8 10px 15px" : "10px 8px",
+            }}
+            icon={faUsers}
+          />
+          <p className="m-0" style={{ display: isOpen ? "block" : "none" }}>
+            Users
+          </p>
+        </NavLink>
+      </div>
     </div>
   );
 }
