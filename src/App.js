@@ -23,7 +23,7 @@ function App() {
         <Route path="/auth/google/callback" element={<GoogleCallBack />} />
 
         {/* private || protected routes */}
-        {/* <Route element={<RequireAuth />}> */}
+        <Route element={<RequireAuth allowedRole={["1996", "1995"]} />}>
         <Route path="dashboard" element={<Dashboard />}>
           <Route element={<RequireAuth allowedRole={["1995"]} />}>
             <Route path="users" element={<Users />} />
@@ -34,7 +34,7 @@ function App() {
             <Route path="writer" element={<Writer />} />
           </Route>
         </Route>
-        {/* </Route> */}
+        </Route>
       </Routes>
     </div>
   );
