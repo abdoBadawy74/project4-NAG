@@ -9,8 +9,7 @@ import { Axios } from "../../Api/axios";
 import { LOGOUT, USER } from "../../Api/Api";
 import { useNavigate } from "react-router-dom";
 import { Dropdown, DropdownButton } from "react-bootstrap";
-import Logout from "./../../Pages/Auth/Logout";
-import { Cookie } from "cookie-universal";
+import Cookie from "cookie-universal";
 
 export default function TopBar() {
   const menu = useContext(Menu);
