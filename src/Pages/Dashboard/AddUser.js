@@ -57,7 +57,7 @@ export default function AddUser() {
           />
         </Form.Group>
 
-        <Form.Group className="mb-3" controlId="exampleForm.ControlInput2">
+        <Form.Group className="mb-3" controlId="exampleForm.ControlInput3">
           <Form.Label>Password</Form.Label>
           <Form.Control
             type="password"
@@ -68,7 +68,7 @@ export default function AddUser() {
           />
         </Form.Group>
 
-        <Form.Group className="mb-3" controlId="exampleForm.ControlInput3">
+        <Form.Group className="mb-3" controlId="exampleForm.ControlInput4">
           <Form.Label>Role</Form.Label>
           <Form.Select
             value={role}
