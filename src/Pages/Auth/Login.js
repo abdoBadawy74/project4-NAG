@@ -14,7 +14,7 @@ export default function Login() {
     email: "",
     password: "",
   });
-  const navigate= useNavigate();
+  const navigate = useNavigate();
 
   // Cookies
   const cookie = Cookie();
@@ -41,7 +41,7 @@ export default function Login() {
         setLoading(false);
         const token = res.data.token;
         cookie.set("e-commerce", token);
-        navigate("/", { replace: true });
+        navigate("/dashboard", { replace: true });
       });
     } catch (err) {
       console.log(err);
