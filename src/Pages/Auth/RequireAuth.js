@@ -35,7 +35,7 @@ export default function RequireAuth({ allowedRole }) {
     ) : allowedRole.includes(user?.role) ? (
       <Outlet />
     ) : (
-      <Err403 />
+      <Err403 role={user?.role} />
     )
   ) : (
     <Navigate to="/login" replace={true} />
