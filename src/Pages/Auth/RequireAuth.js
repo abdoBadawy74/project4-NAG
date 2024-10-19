@@ -29,15 +29,15 @@ export default function RequireAuth({ allowedRole }) {
   //   token ? <Outlet /> : <Navigate to="/login" replace={true} />;
 
   //   check if the token is available or not
-  return token ? (
-    user === "" ? (
-      <Loading />
-    ) : allowedRole.includes(user?.role) ? (
-      <Outlet />
-    ) : (
-      <Err403 role={user?.role} />
-    )
-  ) : (
-    <Navigate to="/login" replace={true} />
-  );
+  if (token) {
+    if (user === null) {
+      return <Loading />;
+    } else if (allowedRole.includes(user?.role)) {
+      return <Outlet />;
+    } else {
+      return <Err403 role={user?.role} />;
+    }
+  } else {
+    return <Navigate to="/login" replace={true} />;
+  }
 }
