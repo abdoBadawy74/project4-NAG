@@ -39,11 +39,14 @@ export default function Users() {
       });
   }, [deleteUser]);
 
-  // filter current user
-  const filterUsers = users.filter((user) => user.id !== currentUser.id);
 
   // handle delete user function
   async function handleDelete(id) {
+
+    if(currentUser.id === id){
+      alert("You can't delete yourself");
+      return;
+    }
     try {
       const res = await Axios.delete(`${USER}/${id}`);
       setDeleteUser(!deleteUser);
@@ -78,12 +81,12 @@ export default function Users() {
             <tr className="text-center fs-3">
               <td colSpan="12">Loading...</td>
             </tr>
-          ) : users.length <= 1 && noUsers ? (
+          ) : users.length === 0 && noUsers ? (
             <tr className="text-center fs-3">
               <td colSpan="12">No Users Found !</td>
             </tr>
           ) : (
-            filterUsers.map((user) => (
+            users.map((user) => (
               <tr
                 key={user.id}
                 className="p-0"
@@ -92,7 +95,7 @@ export default function Users() {
                 }}
               >
                 <td>{user.id}</td>
-                <td>{user.name}</td>
+                <td>{user.name === currentUser.name ? user.name+ " (You)":user.name }</td>
                 <td>{user.email}</td>
                 <td>
                   {user.role === "1995"
