@@ -11,6 +11,7 @@ import User from "./Pages/Dashboard/User";
 import AddUser from "./Pages/Dashboard/AddUser";
 import Err403 from "./Pages/Auth/Err403";
 import Writer from "./Pages/Dashboard/Writer";
+import Err404 from "./Pages/Auth/Err404";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Regiser />} />
         <Route path="/auth/google/callback" element={<GoogleCallBack />} />
+        <Route path="/*" element={<Err404 />} />
 
         {/* private || protected routes */}
         <Route element={<RequireAuth allowedRole={["1996", "1995"]} />}>
