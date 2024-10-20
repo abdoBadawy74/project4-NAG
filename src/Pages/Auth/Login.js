@@ -40,8 +40,10 @@ export default function Login() {
         console.log(res);
         setLoading(false);
         const token = res.data.token;
+        const role = res.data.user.role;
+        const go = role === "1995" ? "users" : "writer";
         cookie.set("e-commerce", token);
-        window.location.pathname="/dashboard/users";
+        window.location.pathname = `/dashboard/${go}`;
       });
     } catch (err) {
       console.log(err);
