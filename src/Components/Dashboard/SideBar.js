@@ -56,9 +56,10 @@ export default function SideBar() {
           position: windowSize.windowSize < "768" ? "fixed" : "sticky",
         }}
       >
-        {links.map((link) => {
+        {links.map((link,key) => {
           return (
             <NavLink
+              key={key}
               to={link.path}
               className={"d-flex align-items-center gap-2 side-bar-link my-3"}
             >
