@@ -1,2 +1,2 @@
-email = admin2@gmail.com
+email = admin@gmail.com
 pass = admin123$%
