@@ -11,6 +11,9 @@ export const LOGOUT = "logout";
 export const USERS = "users";
 export const USER = "user";
 
+// Categories
+export const CATEGORIES = "categories";
+
 
 // Google Auth
 export const GOOGLE_CALLBACK = "auth/google/callback";
