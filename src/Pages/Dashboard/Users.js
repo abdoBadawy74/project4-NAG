@@ -5,6 +5,7 @@ import { Axios } from "../../Api/axios";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
+import TableComponent from "../../Components/Dashboard/TableComponent";
 
 export default function Users() {
   const [users, setUsers] = useState([]);
@@ -39,34 +40,39 @@ export default function Users() {
       });
   }, [deleteUser]);
 
-
-  // handle delete user function
-  async function handleDelete(id) {
-
-    if(currentUser.id === id){
-      alert("You can't delete yourself");
-      return;
-    }
-    try {
-      const res = await Axios.delete(`${USER}/${id}`);
-      setDeleteUser(!deleteUser);
-      console.log(res);
-    } catch (err) {
-      console.log(err);
-    }
-  }
+  const header = [
+    {
+      name: "Name",
+      key: "name",
+    },
+    {
+      name: "Email",
+      key: "email",
+    },
+    {
+      name: "Role",
+      key: "role",
+    },
+  ];
 
   return (
     <div className="bg-white w-100 p-2">
-
-    <div className="d-flex align-items-center justify-content-between my-3">
+      <div className="d-flex align-items-center justify-content-between my-3">
         <h2 className="text-center">Users</h2>
         <Link to="/dashboard/users/add" className="btn btn-primary">
           Add User
         </Link>
-    </div>
+      </div>
 
-      <Table striped bordered hover className="text-center">
+      <TableComponent header={header} data={users} currentUser={currentUser} />
+    </div>
+  );
+}
+
+/*
+
+
+  <Table striped bordered hover className="text-center">
         <thead>
           <tr>
             <th>Id</th>
@@ -98,11 +104,7 @@ export default function Users() {
                 <td>{user.name === currentUser.name ? user.name+ " (You)":user.name }</td>
                 <td>{user.email}</td>
                 <td>
-                  {user.role === "1995"
-                    ? "admin"
-                    : user.role === "2001"
-                    ? "User"
-                    : "Writer"}
+                  {}
                 </td>
                 <td className="d-flex justify-content-center gap-4">
                   <Link to={`${user.id}`} className="btn btn-success">
@@ -120,6 +122,5 @@ export default function Users() {
           )}
         </tbody>
       </Table>
-    </div>
-  );
-}
+
+*/
