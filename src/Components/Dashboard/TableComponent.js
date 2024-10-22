@@ -3,20 +3,18 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { Axios } from "../../Api/axios";
-import { USER } from "../../Api/Api";
 
-export default function TableComponent({ header, data, currentUser }) {
-  const user = currentUser || false;
-  const headerShow = header.map((head, index) => (
+export default function TableComponent(props) {
+  const user = props.currentUser || false;
+  const headerShow = props.header.map((head, index) => (
     <th key={index}>{head.name}</th>
   ));
-  console.log(data);
+  console.log(props.data);
 
-  const dataShow = data.map((data) => (
-    <tr key={data.id}>
+  const dataShow = props.data.map((data, index) => (
+    <tr key={index}>
       <td>{data.id}</td>
-      {header.map((item, index) => (
+      {props.header.map((item, index) => (
         <td key={index}>
           {/* show role of user upon check of number given from backend or show the value of this attr */}
           {data[item.key] === "1995"
@@ -37,27 +35,13 @@ export default function TableComponent({ header, data, currentUser }) {
         </Link>
         <button
           className="btn btn-danger"
-          onClick={() => handleDelete(data.id)}
+          onClick={() => props.delete(data.id)}
         >
           Delete <FontAwesomeIcon icon={faTrash} />
         </button>
       </td>
     </tr>
   ));
-
-  // handle delete user function
-  async function handleDelete(id) {
-    if (currentUser.id === id) {
-      alert("You can't delete yourself");
-      return;
-    }
-    try {
-      const res = await Axios.delete(`${USER}/${id}`);
-      console.log(res);
-    } catch (err) {
-      console.log(err);
-    }
-  }
 
   return (
     <Table striped bordered hover className="text-center">
@@ -69,7 +53,17 @@ export default function TableComponent({ header, data, currentUser }) {
         </tr>
       </thead>
 
-      <tbody>{dataShow}</tbody>
+      <tbody>
+        {props.data.length === 0 && (
+          <tr>
+            <td colSpan={12}>
+              {" "}
+              <h2>Loading...</h2>
+            </td>
+          </tr>
+        )}
+        {dataShow}
+      </tbody>
     </Table>
   );
 }

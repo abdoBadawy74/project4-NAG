@@ -10,8 +10,6 @@ import TableComponent from "../../Components/Dashboard/TableComponent";
 export default function Users() {
   const [users, setUsers] = useState([]);
   const [currentUser, setCurrentUser] = useState({});
-  const [deleteUser, setDeleteUser] = useState(false);
-  const [noUsers, setNoUsers] = useState(false);
 
   // get current user
   useEffect(() => {
@@ -32,13 +30,10 @@ export default function Users() {
         console.log(res);
         setUsers(res.data);
       })
-      .then(() => {
-        setNoUsers(true);
-      })
       .catch((err) => {
         console.log(err);
       });
-  }, [deleteUser]);
+  }, []);
 
   const header = [
     {
@@ -55,6 +50,22 @@ export default function Users() {
     },
   ];
 
+  // handle delete user function
+  async function handleDelete(id) {
+    console.log(id);
+    if (currentUser.id === id) {
+      alert("You can't delete yourself");
+      return;
+    }
+    try {
+      const res = await Axios.delete(`${USER}/${id}`);
+      setUsers((prev) => prev.filter((user) => user.id !== id));
+      console.log(res);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   return (
     <div className="bg-white w-100 p-2">
       <div className="d-flex align-items-center justify-content-between my-3">
@@ -64,63 +75,12 @@ export default function Users() {
         </Link>
       </div>
 
-      <TableComponent header={header} data={users} currentUser={currentUser} />
+      <TableComponent
+        header={header}
+        data={users}
+        currentUser={currentUser}
+        delete={handleDelete}
+      />
     </div>
   );
 }
-
-/*
-
-
-  <Table striped bordered hover className="text-center">
-        <thead>
-          <tr>
-            <th>Id</th>
-            <th>Username</th>
-            <th>Email</th>
-            <th>Role</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users.length === 0 ? (
-            <tr className="text-center fs-3">
-              <td colSpan="12">Loading...</td>
-            </tr>
-          ) : users.length === 0 && noUsers ? (
-            <tr className="text-center fs-3">
-              <td colSpan="12">No Users Found !</td>
-            </tr>
-          ) : (
-            users.map((user) => (
-              <tr
-                key={user.id}
-                className="p-0"
-                style={{
-                  lineHeight: "2.5",
-                }}
-              >
-                <td>{user.id}</td>
-                <td>{user.name === currentUser.name ? user.name+ " (You)":user.name }</td>
-                <td>{user.email}</td>
-                <td>
-                  {}
-                </td>
-                <td className="d-flex justify-content-center gap-4">
-                  <Link to={`${user.id}`} className="btn btn-success">
-                    Edit <FontAwesomeIcon icon={faPenToSquare} />
-                  </Link>
-                  <button
-                    className="btn btn-danger"
-                    onClick={() => handleDelete(user.id)}
-                  >
-                    Delete <FontAwesomeIcon icon={faTrash} />
-                  </button>
-                </td>
-              </tr>
-            ))
-          )}
-        </tbody>
-      </Table>
-
-*/
