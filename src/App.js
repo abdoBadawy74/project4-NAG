@@ -13,6 +13,8 @@ import Writer from "./Pages/Dashboard/Writer";
 import Err404 from "./Pages/Auth/Err404";
 import RequireBack from "./Pages/Auth/RequireBack";
 import Categories from "./Pages/Dashboard/Categories";
+import AddCategory from "./Pages/Dashboard/AddCategory";
+import Category from "./Pages/Dashboard/Category";
 
 function App() {
   return (
@@ -38,6 +40,8 @@ function App() {
 
             <Route element={<RequireAuth allowedRole={["1999", "1995"]} />}>
               <Route path="categories" element={<Categories />} />
+              <Route path="categories/:id" element={<Category />} />
+              <Route path="category/add" element={<AddCategory/>} />
             </Route>
 
             <Route element={<RequireAuth allowedRole={["1996", "1995"]} />}>

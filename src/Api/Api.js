@@ -13,6 +13,8 @@ export const USER = "user";
 
 // Categories
 export const CATEGORIES = "categories";
+export const CATEGORY = "category";
+
 
 
 // Google Auth

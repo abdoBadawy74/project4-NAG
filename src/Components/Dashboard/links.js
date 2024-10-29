@@ -22,6 +22,11 @@ export const links = [
     icon: faCartShopping,
   },
   {
+    name: "Add Category",
+    path: "/dashboard/category/add",
+    icon: faPlus,
+  },
+  {
     name: "Writer",
     path: "/dashboard/writer",
     icon: faMarker,
