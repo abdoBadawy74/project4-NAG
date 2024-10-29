@@ -16,8 +16,11 @@ export default function TableComponent(props) {
       <td>{data.id}</td>
       {props.header.map((item, index) => (
         <td key={index}>
-          {/* show role of user upon check of number given from backend or show the value of this attr */}
-          {data[item.key] === "1995"
+           {
+           item.key === "image" ? <img src={data[item.key]} alt="img" width={"40px"} />
+           :
+          // {/* show role of user upon check of number given from backend or show the value of this attr */}
+          data[item.key] === "1995"
             ? "admin"
             : data[item.key] === "2001"
             ? "User"
@@ -27,6 +30,7 @@ export default function TableComponent(props) {
             ? "Product Manager"
             : data[item.key]}
           {user && data[item.key] === user.name ? " (You)" : ""}
+         
         </td>
       ))}
       <td className="d-flex justify-content-center gap-4">

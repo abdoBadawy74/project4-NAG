@@ -1,61 +1,59 @@
 import React, { useEffect, useState } from "react";
-import { CATEGORIES } from "../../Api/Api";
+import { CATEGORIES,CATEGORY } from "../../Api/Api";
 import { Axios } from "../../Api/axios";
 import { Link } from "react-router-dom";
-import { Table } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
 import TableComponent from "../../Components/Dashboard/TableComponent";
 
 export default function Categories() {
-  const [users, setUsers] = useState([]);
-  const [currentUser, setCurrentUser] = useState({});
-  const [deleteUser, setDeleteUser] = useState(false);
-  const [noUsers, setNoUsers] = useState(false);
+  const [categories, setCategories] = useState([]);
 
   // get all users
   useEffect(() => {
     Axios.get(`/${CATEGORIES}`)
       .then((res) => {
         console.log(res);
-        setUsers(res.data);
+        setCategories(res.data);
       })
-      .then(() => {
-        setNoUsers(true);
-      })
+
       .catch((err) => {
         console.log(err);
       });
-  }, [deleteUser]);
+  }, []);
 
-  // // handle delete user function
-  // async function handleDelete(id) {
+  const header = [
+    {
+      name: "Title",
+      key: "title",
+    },
+    {
+      name: "image",
+      key: "image",
+    },
+  ];
 
-  //   if(currentUser.id === id){
-  //     alert("You can't delete yourself");
-  //     return;
-  //   }
-  //   try {
-  //     const res = await Axios.delete(`${CATEGORIES}/${id}`);
-  //     setDeleteUser(!deleteUser);
-  //     console.log(res);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // }
+  // handle delete user function
+  async function handleDelete(id) {
+    console.log(id);
 
-  const header = ["Id", "Name", "Description"];
+    try {
+      const res = await Axios.delete(`${CATEGORY}/${id}`);
+      setCategories((prev) => prev.filter((category) => category.id !== id));
+      console.log(res);
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
   return (
     <div className="bg-white w-100 p-2">
       <div className="d-flex align-items-center justify-content-between my-3">
         <h2 className="text-center">Categories Page</h2>
-        <Link to="/dashboard/users/add" className="btn btn-primary">
-          Add User
+        <Link to="/dashboard/category/add" className="btn btn-primary">
+          Add category
         </Link>
       </div>
 
-      <TableComponent header={header} />
+      <TableComponent header={header} data={categories} delete={handleDelete} />
     </div>
   );
 }
