@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Form } from "react-bootstrap";
 import { Axios } from "../../Api/axios";
 import { USER } from "../../Api/Api";
@@ -29,6 +29,14 @@ export default function AddUser() {
     }
   }
 
+    // ref
+    const focus = useRef();
+
+    // handle focus
+    useEffect(() => {
+      focus.current.focus();
+    })
+
   //   console.log(name);
   //   console.log(email);
 
@@ -41,6 +49,7 @@ export default function AddUser() {
           <Form.Label>User Name</Form.Label>
           <Form.Control
             type="text"
+            ref={focus}
             placeholder="name..."
             value={name}
             onChange={(e) => setName(() => e.target.value)}

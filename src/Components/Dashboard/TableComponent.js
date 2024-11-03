@@ -17,7 +17,7 @@ export default function TableComponent(props) {
       {props.header.map((item, index) => (
         <td key={index}>
            {
-           item.key === "image" ? <img src={data[item.key]} alt="img" width={"40px"} />
+           item.key === "image" ? <img src={data[item.key]} alt="img" width={"60px"} />
            :
           // {/* show role of user upon check of number given from backend or show the value of this attr */}
           data[item.key] === "1995"

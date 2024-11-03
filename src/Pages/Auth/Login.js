@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { BaseURL, LOGIN } from "../../Api/Api";
 import Loading from "../../Components/Loading/Loading";
 import Cookie from "cookie-universal";
@@ -21,6 +21,16 @@ export default function Login() {
 
   // State for error
   const [error, setError] = useState("");
+
+  // ref
+  const focus = useRef();
+
+  // handle focus
+  useEffect(() => {
+    focus.current.focus();
+  })
+
+
 
   // loading state
   const [loading, setLoading] = useState(false);
@@ -75,6 +85,7 @@ export default function Login() {
                 <Form.Control
                   type="email"
                   name="email"
+                  ref={focus}
                   className="form-control"
                   placeholder="Enter your Email.."
                   value={form.email}

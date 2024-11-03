@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Form } from "react-bootstrap";
 import { Axios } from "../../Api/axios";
 import { CATEGORY } from "../../Api/Api";
@@ -29,6 +29,17 @@ export default function AddCategory() {
       console.log(err);
     }
   }
+
+
+    // ref
+    const focus = useRef();
+
+    // handle focus
+    useEffect(() => {
+      focus.current.focus();
+    })
+
+
   console.log(title);
   console.log(image);
 
@@ -41,6 +52,7 @@ export default function AddCategory() {
           <Form.Label>Title</Form.Label>
           <Form.Control
             type="text"
+            ref={focus}
             placeholder="name..."
             value={title}
             onChange={(e) => setTitle(() => e.target.value)}

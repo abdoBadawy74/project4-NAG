@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Form } from "react-bootstrap";
 import { Axios } from "../../Api/axios";
 import { USER } from "../../Api/Api";
 import Loading from "../../Components/Loading/Loading";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function User() {
   const [name, setName] = useState("");
@@ -13,8 +13,11 @@ export default function User() {
   const [loading, setLoading] = useState(false);
   const nav = useNavigate();
 
-  const id = window.location.pathname.replace("/dashboard/users/", "");
+  const {id} = useParams()
   console.log(id);
+
+  const text = useRef("text")
+  console.log(text);
 
   //   get user data
 
