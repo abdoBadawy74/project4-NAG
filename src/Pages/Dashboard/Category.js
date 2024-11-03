@@ -4,6 +4,7 @@ import { Axios } from "../../Api/axios";
 import { CATEGORY, USER } from "../../Api/Api";
 import Loading from "../../Components/Loading/Loading";
 import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 export default function Category() {
   const [title, setTitle] = useState("");
@@ -13,7 +14,7 @@ export default function Category() {
   const [loading, setLoading] = useState(false);
   const nav = useNavigate();
 
-  const id = window.location.pathname.replace("/dashboard/categories/", "");
+  const {id} = useParams()
   console.log(id);
 
   //   get user data
@@ -49,7 +50,7 @@ export default function Category() {
     try {
       const res = await Axios.post(`${CATEGORY}/edit/${id}`, form);
       console.log(res);
-      window.location.replace("/dashboard/users");
+      window.location.replace("/dashboard/categories");
     } catch (err) {
       console.log(err);
     }

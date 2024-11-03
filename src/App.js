@@ -16,6 +16,7 @@ import Categories from "./Pages/Dashboard/Categories";
 import AddCategory from "./Pages/Dashboard/AddCategory";
 import Category from "./Pages/Dashboard/Category";
 
+
 function App() {
   return (
     <div className="App">
@@ -41,7 +42,7 @@ function App() {
             <Route element={<RequireAuth allowedRole={["1999", "1995"]} />}>
               <Route path="categories" element={<Categories />} />
               <Route path="categories/:id" element={<Category />} />
-              <Route path="category/add" element={<AddCategory/>} />
+              <Route path="category/add" element={<AddCategory />} />
             </Route>
 
             <Route element={<RequireAuth allowedRole={["1996", "1995"]} />}>
