@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { CATEGORIES,CATEGORY } from "../../Api/Api";
+import { PRODUCT, PRODUCTS } from "../../Api/Api";
 import { Axios } from "../../Api/axios";
 import { Link } from "react-router-dom";
 import TableComponent from "../../Components/Dashboard/TableComponent";
 
-export default function Categories() {
-  const [categories, setCategories] = useState([]);
+export default function Products() {
+  const [products, setProducts] = useState([]);
 
-  // get all categories
+  // get all users
   useEffect(() => {
-    Axios.get(`/${CATEGORIES}`)
+    Axios.get(`/${PRODUCTS}`)
       .then((res) => {
         console.log(res);
-        setCategories(res.data);
+        setProducts(res.data);
       })
 
       .catch((err) => {
@@ -22,12 +22,20 @@ export default function Categories() {
 
   const header = [
     {
-      name: "Title",
       key: "title",
+      name: "Title",
     },
     {
-      name: "image",
-      key: "image",
+      key: "description",
+      name: "Description",
+    },
+    {
+      name: "Price",
+      key: "price",
+    },
+    {
+      name: "Rating",
+      key: "rating",
     },
   ];
 
@@ -36,8 +44,8 @@ export default function Categories() {
     console.log(id);
 
     try {
-      const res = await Axios.delete(`${CATEGORY}/${id}`);
-      setCategories((prev) => prev.filter((category) => category.id !== id));
+      const res = await Axios.delete(`${PRODUCT}/${id}`);
+      setProducts((prev) => prev.filter((category) => category.id !== id));
       console.log(res);
     } catch (err) {
       console.log(err);
@@ -47,13 +55,13 @@ export default function Categories() {
   return (
     <div className="bg-white w-100 p-2">
       <div className="d-flex align-items-center justify-content-between my-3">
-        <h2 className="text-center">Categories Page</h2>
+        <h2 className="text-center">Products Page</h2>
         <Link to="/dashboard/category/add" className="btn btn-primary">
-          Add category
+          Add Product
         </Link>
       </div>
 
-      <TableComponent header={header} data={categories} delete={handleDelete} />
+      <TableComponent header={header} data={products} delete={handleDelete} />
     </div>
   );
 }
