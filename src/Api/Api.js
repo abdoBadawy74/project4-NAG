@@ -15,6 +15,10 @@ export const USER = "user";
 export const CATEGORIES = "categories";
 export const CATEGORY = "category";
 
+// products
+export const PRODUCTS = "products";
+export const PRODUCT = "product";
+
 
 
 // Google Auth

@@ -47,13 +47,13 @@ export default function AddCategory() {
     <>
       {loading && <Loading />}
       <Form className="bg-white w-100 mx-2 p-3" onSubmit={handleSubmit}>
-        <h2 className="my-3">Update User</h2>
+        <h2 className="my-3">Add Category</h2>
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
           <Form.Label>Title</Form.Label>
           <Form.Control
             type="text"
             ref={focus}
-            placeholder="name..."
+            placeholder="title..."
             value={title}
             onChange={(e) => setTitle(() => e.target.value)}
           />
