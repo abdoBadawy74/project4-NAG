@@ -37,6 +37,7 @@ export default function AddProducts() {
   // ref
   const focus = useRef();
   const openImage = useRef();
+  const progess = useRef([]);
 
   // handle focus
   useEffect(() => {
@@ -110,9 +111,12 @@ export default function AddProducts() {
       try {
         const res = await Axios.post(`/product-img/add`, data, {
           onUploadProgress: (progressEvent) => {
-            const loaded = progressEvent.loaded;
-            const total = progressEvent.total;
-            setUploading(Math.floor((loaded / total) * 100));
+            const { loaded, total } = progressEvent;
+            const percent = Math.floor((loaded / total) * 100);
+            if (percent % 10 === 0) {
+              progess.current[i].style.width = `${percent}%`;
+              progess.current[i].setAttribute("percent", `${percent}%`);
+            }
           },
         });
         // console.log(res);
@@ -146,9 +150,9 @@ export default function AddProducts() {
       </div>
       <div className="custom-progress mt-3">
         <span
-          className="inner-progress"
-          percent={`${uploading}%`}
-          style={{ width: `${uploading}%` }}
+          ref={(e) => (progess.current[i] = e)}
+          className="inner-progress "
+          // style={{ width: "0%" }}
         ></span>
       </div>
     </div>
