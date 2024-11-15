@@ -100,12 +100,15 @@ export default function AddProducts() {
   //   console.log(title);
   // console.log(images);
 
+  const count = useRef(-1);
+
   // handle images change
   async function handleImagesChange(e) {
     setImages((prev) => [...prev, ...e.target.files]);
     const imagesAsFiles = e.target.files; // as setimages will rerender the component so we need to store the images in a variable
     const data = new FormData();
     for (let i = 0; i < imagesAsFiles.length; i++) {
+      count.current++;
       data.append("image", imagesAsFiles[i]);
       data.append("product_id", id);
       try {
@@ -114,8 +117,8 @@ export default function AddProducts() {
             const { loaded, total } = progressEvent;
             const percent = Math.floor((loaded / total) * 100);
             if (percent % 10 === 0) {
-              progess.current[i].style.width = `${percent}%`;
-              progess.current[i].setAttribute("percent", `${percent}%`);
+              progess.current[count.current].style.width = `${percent}%`;
+              progess.current[count.current].setAttribute("percent", `${percent}%`);
             }
           },
         });
