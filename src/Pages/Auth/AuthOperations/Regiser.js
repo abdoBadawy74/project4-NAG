@@ -1,36 +1,33 @@
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
-import { BaseURL, LOGIN } from "../../Api/Api";
-import Loading from "../../Components/Loading/Loading";
+import { BaseURL, REGISTER } from "../../../Api/Api";
+import Loading from "../../../Components/Loading/Loading";
 import Cookie from "cookie-universal";
-import "../../Css/Components/googl.css";
-import google from "../../images/googl.png";
+import google from "../../../images/googl.png";
 import Form from "react-bootstrap/Form";
 import { useNavigate } from "react-router-dom";
 
-export default function Login() {
+export default function Regiser() {
   // States for the form
   const [form, setForm] = useState({
+    name: "",
     email: "",
     password: "",
   });
-  const navigate = useNavigate();
+  const navigate= useNavigate();
 
   // Cookies
   const cookie = Cookie();
-
   // State for error
   const [error, setError] = useState("");
 
-  // ref
-  const focus = useRef();
+    // ref
+    const focus = useRef();
 
-  // handle focus
-  useEffect(() => {
-    focus.current.focus();
-  })
-
-
+    // handle focus
+    useEffect(() => {
+      focus.current.focus();
+    })
 
   // loading state
   const [loading, setLoading] = useState(false);
@@ -46,20 +43,18 @@ export default function Login() {
     setLoading(true);
     console.log(form);
     try {
-      await axios.post(`${BaseURL}/${LOGIN}`, form).then((res) => {
+      await axios.post(`${BaseURL}/${REGISTER}`, form).then((res) => {
         console.log(res);
         setLoading(false);
         const token = res.data.token;
-        const role = res.data.user.role;
-        const go = role === "1995" ? "users" : "writer";
         cookie.set("e-commerce", token);
-        window.location.pathname = `/dashboard/${go}`;
+        navigate("/", { replace: true });
       });
     } catch (err) {
       console.log(err);
       setLoading(false);
-      if (err.response.status === 401) {
-        setError("Wrong Email or Password");
+      if (err.response.status === 422) {
+        setError("Email already been taken");
       } else {
         setError("Internal Server Error");
       }
@@ -75,17 +70,33 @@ export default function Login() {
             height: "100vh",
           }}
         >
-          <Form className="form" onSubmit={handleFormSubmit}>
-            <h1 className="my-4">Login Now</h1>
+          <Form className="form " onSubmit={handleFormSubmit}>
+            <h1 className="mb-4">Register Now</h1>
             <div className="custom-form">
               <Form.Group
                 className="form-custom"
                 controlId="exampleForm.ControlInput1"
               >
                 <Form.Control
+                  type="text"
+                  name="name"
+                  ref={focus}
+                  className="form-control"
+                  placeholder="Enter your Name.."
+                  value={form.name}
+                  onChange={handleFormChange}
+                  required
+                />
+                <Form.Label>Name </Form.Label>
+              </Form.Group>
+
+              <Form.Group
+                className="form-custom"
+                controlId="exampleForm.ControlInput2"
+              >
+                <Form.Control
                   type="email"
                   name="email"
-                  ref={focus}
                   className="form-control"
                   placeholder="Enter your Email.."
                   value={form.email}
@@ -97,7 +108,7 @@ export default function Login() {
 
               <Form.Group
                 className="form-custom"
-                controlId="exampleForm.ControlInput2  "
+                controlId="exampleForm.ControlInput3"
               >
                 <Form.Control
                   type="password"
@@ -114,7 +125,7 @@ export default function Login() {
               </Form.Group>
 
               <button type="submit" className="btn btn-success">
-                Login
+                Register
               </button>
 
               <div className="google-btn">

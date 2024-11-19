@@ -1,6 +1,6 @@
 import React from "react";
-import { LOGOUT } from "../../Api/Api";
-import { Axios } from "../../Api/axios";
+import { LOGOUT } from "../../../Api/Api";
+import { Axios } from "../../../Api/axios";
 
 export default function Logout() {
   async function handleLogout() {

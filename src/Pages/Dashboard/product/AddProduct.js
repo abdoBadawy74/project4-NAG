@@ -1,10 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Button, Form } from "react-bootstrap";
-import { Axios } from "../../Api/axios";
-import { CATEGORIES, PRODUCT } from "../../Api/Api";
-import Loading from "../../Components/Loading/Loading";
+import { Axios } from "../../../Api/axios";
+import { CATEGORIES, PRODUCT } from "../../../Api/Api";
+import Loading from "../../../Components/Loading/Loading";
 import { useNavigate } from "react-router-dom";
-import { prefix } from "@fortawesome/free-regular-svg-icons";
 
 export default function AddProducts() {
   const [form, setForm] = useState({
@@ -289,7 +288,7 @@ export default function AddProducts() {
           }}
         >
           <img
-            src={require("../../images/upload.png")}
+            src={require("../../../images/upload.png")}
             alt="upload"
             width={"100px"}
             style={{ filter: !sent ? "grayscale(100%)" : "grayscale(0%)" }}

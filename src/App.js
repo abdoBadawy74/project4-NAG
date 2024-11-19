@@ -1,22 +1,24 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import Homepage from "./Pages/Website/Homepage";
-import Login from "./Pages/Auth/Login";
-import Regiser from "./Pages/Auth/Regiser";
-import Users from "./Pages/Dashboard/Users";
-import GoogleCallBack from "./Pages/Auth/GoogleCallBack";
-import Dashboard from "./Pages/Dashboard/Dashboard";
-import RequireAuth from "./Pages/Auth/RequireAuth";
-import User from "./Pages/Dashboard/User";
-import AddUser from "./Pages/Dashboard/AddUser";
-import Writer from "./Pages/Dashboard/Writer";
-import Err404 from "./Pages/Auth/Err404";
-import RequireBack from "./Pages/Auth/RequireBack";
-import Categories from "./Pages/Dashboard/Categories";
-import AddCategory from "./Pages/Dashboard/AddCategory";
-import Category from "./Pages/Dashboard/Category";
-import Products from "./Pages/Dashboard/Products";
-import AddProducts from "./Pages/Dashboard/AddProduct";
+import Homepage from './Pages/Website/Homepage';
+import RequireBack from './Pages/Auth/protecting/RequireBack';
+import Login from './Pages/Auth/AuthOperations/Login';
+import Regiser from './Pages/Auth/AuthOperations/Regiser';
+import GoogleCallBack from './Pages/Auth/AuthOperations/GoogleCallBack';
+import Err404 from './Pages/Auth/Errors/Err404';
+import RequireAuth from './Pages/Auth/protecting/RequireAuth';
+import Dashboard from './Pages/Dashboard/Dashboard';
+import Users from './Pages/Dashboard/User/Users';
+import User from './Pages/Dashboard/User/User';
+import AddUser from './Pages/Dashboard/User/AddUser';
+import Categories from './Pages/Dashboard/category/Categories';
+import Category from './Pages/Dashboard/category/Category';
+import AddCategory from "./Pages/Dashboard/category/AddCategory";
+import Products from './Pages/Dashboard/product/Products';
+import AddProducts from "./Pages/Dashboard/product/AddProduct";
+import Writer from './Pages/Dashboard/Writer';
+
+
 
 
 function App() {

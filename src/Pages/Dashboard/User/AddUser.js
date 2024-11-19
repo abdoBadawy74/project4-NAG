@@ -1,53 +1,25 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Form } from "react-bootstrap";
-import { Axios } from "../../Api/axios";
-import { USER } from "../../Api/Api";
-import Loading from "../../Components/Loading/Loading";
-import { useNavigate, useParams } from "react-router-dom";
+import { Axios } from "../../../Api/axios";
+import { USER } from "../../../Api/Api";
+import Loading from "../../../Components/Loading/Loading";
 
-export default function User() {
+export default function AddUser() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [role, setRole] = useState("");
-  const [disabled, setDisabled] = useState(true);
+  const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const nav = useNavigate();
-
-  const {id} = useParams()
-  console.log(id);
-
-  const text = useRef("text")
-  console.log(text);
-
-  //   get user data
-
-  useEffect(() => {
-    setLoading(true);
-    Axios.get(`${USER}/${id}`)
-      .then((res) => {
-        console.log(res.data);
-        setName(res.data.name);
-        setEmail(res.data.email);
-        setRole(res.data.role);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.log(err);
-        nav("/dashboard/users/page/404", { replace: true });
-      })
-      .finally(() => {
-        setDisabled(false);
-      });
-  }, []);
 
   //   function handleSubmit
   async function handleSubmit(e) {
     setLoading(true);
     e.preventDefault();
     try {
-      const res = await Axios.post(`${USER}/edit/${id}`, {
+      const res = await Axios.post(`${USER}/add`, {
         name,
         email,
+        password,
         role,
       });
       console.log(res);
@@ -56,6 +28,14 @@ export default function User() {
       console.log(err);
     }
   }
+
+    // ref
+    const focus = useRef();
+
+    // handle focus
+    useEffect(() => {
+      focus.current.focus();
+    })
 
   //   console.log(name);
   //   console.log(email);
@@ -69,6 +49,7 @@ export default function User() {
           <Form.Label>User Name</Form.Label>
           <Form.Control
             type="text"
+            ref={focus}
             placeholder="name..."
             value={name}
             onChange={(e) => setName(() => e.target.value)}
@@ -86,6 +67,17 @@ export default function User() {
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput3">
+          <Form.Label>Password</Form.Label>
+          <Form.Control
+            type="password"
+            placeholder="Enter password.."
+            required
+            value={password}
+            onChange={(e) => setPassword(() => e.target.value)}
+          />
+        </Form.Group>
+
+        <Form.Group className="mb-3" controlId="exampleForm.ControlInput4">
           <Form.Label>Role</Form.Label>
           <Form.Select
             value={role}
@@ -101,7 +93,14 @@ export default function User() {
           </Form.Select>
         </Form.Group>
 
-        <button className="btn btn-primary" disabled={disabled}>
+        <button
+          className="btn btn-primary"
+          disabled={
+            name === "" || email === "" || role === "" || password === ""
+              ? true
+              : false
+          }
+        >
           Save Edits
         </button>
       </Form>
