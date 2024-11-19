@@ -1,25 +1,23 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import Homepage from './Pages/Website/Homepage';
-import RequireBack from './Pages/Auth/protecting/RequireBack';
-import Login from './Pages/Auth/AuthOperations/Login';
-import Regiser from './Pages/Auth/AuthOperations/Regiser';
-import GoogleCallBack from './Pages/Auth/AuthOperations/GoogleCallBack';
-import Err404 from './Pages/Auth/Errors/Err404';
-import RequireAuth from './Pages/Auth/protecting/RequireAuth';
-import Dashboard from './Pages/Dashboard/Dashboard';
-import Users from './Pages/Dashboard/User/Users';
-import User from './Pages/Dashboard/User/User';
-import AddUser from './Pages/Dashboard/User/AddUser';
-import Categories from './Pages/Dashboard/category/Categories';
-import Category from './Pages/Dashboard/category/Category';
+import Homepage from "./Pages/Website/Homepage";
+import RequireBack from "./Pages/Auth/protecting/RequireBack";
+import Login from "./Pages/Auth/AuthOperations/Login";
+import Regiser from "./Pages/Auth/AuthOperations/Regiser";
+import GoogleCallBack from "./Pages/Auth/AuthOperations/GoogleCallBack";
+import Err404 from "./Pages/Auth/Errors/Err404";
+import RequireAuth from "./Pages/Auth/protecting/RequireAuth";
+import Dashboard from "./Pages/Dashboard/Dashboard";
+import Users from "./Pages/Dashboard/User/Users";
+import User from "./Pages/Dashboard/User/User";
+import AddUser from "./Pages/Dashboard/User/AddUser";
+import Categories from "./Pages/Dashboard/category/Categories";
+import Category from "./Pages/Dashboard/category/Category";
 import AddCategory from "./Pages/Dashboard/category/AddCategory";
-import Products from './Pages/Dashboard/product/Products';
+import Products from "./Pages/Dashboard/product/Products";
 import AddProducts from "./Pages/Dashboard/product/AddProduct";
-import Writer from './Pages/Dashboard/Writer';
-
-
-
+import Writer from "./Pages/Dashboard/Writer";
+import UpdateProduct from "./Pages/Dashboard/product/Product";
 
 function App() {
   return (
@@ -44,13 +42,13 @@ function App() {
             </Route>
 
             <Route element={<RequireAuth allowedRole={["1999", "1995"]} />}>
-            {/* categories */}
+              {/* categories */}
               <Route path="categories" element={<Categories />} />
               <Route path="categories/:id" element={<Category />} />
               <Route path="category/add" element={<AddCategory />} />
               {/* Products */}
               <Route path="products" element={<Products />} />
-              <Route path="products/:id" element={<Category />} />
+              <Route path="products/:id" element={<UpdateProduct />} />
               <Route path="product/add" element={<AddProducts />} />
             </Route>
 

@@ -3,9 +3,9 @@ import { Button, Form } from "react-bootstrap";
 import { Axios } from "../../../Api/axios";
 import { CATEGORIES, PRODUCT } from "../../../Api/Api";
 import Loading from "../../../Components/Loading/Loading";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
-export default function AddProducts() {
+export default function UpdateProduct() {
   const [form, setForm] = useState({
     category: "select category",
     title: "",
@@ -15,22 +15,14 @@ export default function AddProducts() {
     About: "",
   });
 
-  const dummyForm = {
-    category: null,
-    title: "dummy",
-    description: "dummy",
-    price: 222,
-    discount: 0,
-    About: "About",
-  };
-
   const nav = useNavigate();
 
   const [images, setImages] = useState([]);
+  const [imagesFromSever, setImagesFromSever] = useState([]);
   const [categories, setCategories] = useState([]);
-  const [sent, setSent] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [id, setId] = useState(null);
+  const { id } = useParams();
+  const [idsFromServer, setIdsFromServer] = useState([]);
 
   // ref
   const focus = useRef();
@@ -41,6 +33,19 @@ export default function AddProducts() {
   // handle focus
   useEffect(() => {
     focus.current.focus();
+  }, []);
+
+  //  get data
+  useEffect(() => {
+    Axios.get(`/${PRODUCT}/${id}`)
+      .then((res) => {
+        console.log(res);
+        setForm(res.data[0]);
+        setImagesFromSever(res.data[0].images);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
 
   function handleOpenImage() {
@@ -66,6 +71,16 @@ export default function AddProducts() {
     e.preventDefault();
 
     try {
+      for (let i = 0; i < idsFromServer.length; i++) {
+        await Axios.delete(`/product-img/${idsFromServer[i]}`)
+          .then((res) => {
+            console.log(res);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+
       const res = await Axios.post(`${PRODUCT}/edit/${id}`, form);
       console.log(res);
       nav("/dashboard/products");
@@ -75,24 +90,9 @@ export default function AddProducts() {
     }
   }
 
-  // handle submit form
-  async function handleSubmitForm() {
-    try {
-      const res = await Axios.post(`${PRODUCT}/add`, dummyForm);
-      console.log(res);
-      setId(res.data.id);
-    } catch (err) {
-      console.log(err);
-    }
-  }
-
   // handle change
   function handleChange(e) {
     setForm({ ...form, [e.target.name]: e.target.value });
-    setSent(1);
-    if (sent !== 1) {
-      handleSubmitForm();
-    }
   }
 
   // console.log(form);
@@ -145,6 +145,12 @@ export default function AddProducts() {
     }
   }
 
+  // delete image from server
+  async function handleDeleteImageFromServer(id) {
+    setImagesFromSever((prev) => prev.filter((img) => img.id !== id));
+    setIdsFromServer((prev) => [...prev, id]);
+  }
+
   // maping
   const categoriesShow = categories.map((category) => (
     <option key={category.id} value={category.id}>
@@ -183,11 +189,31 @@ export default function AddProducts() {
     </div>
   ));
 
+  const imagesFromServerShow = imagesFromSever.map((image, i) => (
+    <div key={i} className="border col-2 p-2 position-relative rounded">
+      <div className="d-flex align-items-center justify-content-between ">
+        <div className="d-flex align-items-center justify-content-start gap-2 shadow rounded">
+          <img src={image.image} alt={""} width="100%" />
+        </div>
+        <div
+          style={{
+            cursor: "pointer",
+            top: "0px",
+          }}
+          className="position-absolute end-0 bg-danger rounded text-white"
+          onClick={() => handleDeleteImageFromServer(image.id)}
+        >
+          <p className=" px-2 m-0 fs-6">x</p>
+        </div>
+      </div>
+    </div>
+  ));
+
   return (
     <>
       {loading && <Loading />}
       <Form className="bg-white w-100 mx-2 p-3" onSubmit={handleEdit}>
-        <h2 className="my-3">Add Product</h2>
+        <h2 className="my-3">Update Product</h2>
 
         <Form.Group className="mb-3" controlId="category">
           <Form.Label>category</Form.Label>
@@ -212,7 +238,6 @@ export default function AddProducts() {
             value={form.title}
             name="title"
             onChange={handleChange}
-            disabled={!sent}
           />
         </Form.Group>
 
@@ -224,7 +249,6 @@ export default function AddProducts() {
             value={form.description}
             name="description"
             onChange={handleChange}
-            disabled={!sent}
           />
         </Form.Group>
 
@@ -236,7 +260,6 @@ export default function AddProducts() {
             value={form.price}
             name="price"
             onChange={handleChange}
-            disabled={!sent}
           />
         </Form.Group>
 
@@ -248,7 +271,6 @@ export default function AddProducts() {
             value={form.discount}
             name="discount"
             onChange={handleChange}
-            disabled={!sent}
           />
         </Form.Group>
 
@@ -260,7 +282,6 @@ export default function AddProducts() {
             value={form.About}
             name="About"
             onChange={handleChange}
-            disabled={!sent}
           />
         </Form.Group>
 
@@ -272,7 +293,6 @@ export default function AddProducts() {
             hidden
             multiple
             onChange={handleImagesChange}
-            disabled={!sent}
           />
         </Form.Group>
 
@@ -280,19 +300,23 @@ export default function AddProducts() {
           className="d-flex align-items-center justify-content-between gap-2 py-3 mb-2 w-100 flex-column"
           onClick={handleOpenImage}
           style={{
-            border: !sent ? "2px dashed #777" : "2px dashed #0086fe",
+            border: "2px dashed #0086fe",
             borderRadius: "5px",
             padding: "10px",
-            cursor: sent && "pointer",
+            cursor: "pointer",
           }}
         >
           <img
             src={require("../../../images/upload.png")}
             alt="upload"
             width={"100px"}
-            style={{ filter: !sent ? "grayscale(100%)" : "grayscale(0%)" }}
+            style={{ filter: "grayscale(0%)" }}
           />
           <p className="text-secondary mb-0">Upload Images</p>
+        </div>
+
+        <div className="d-flex align-items-start flex-wrap gap-2">
+          {imagesFromServerShow}
         </div>
 
         <div className="d-flex align-items-center flex-column gap-2">
