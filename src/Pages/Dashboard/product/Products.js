@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { PRODUCT, PRODUCTS } from "../../Api/Api";
-import { Axios } from "../../Api/axios";
+import { PRODUCT, PRODUCTS } from "../../../Api/Api";
+import { Axios } from "../../../Api/axios";
 import { Link } from "react-router-dom";
-import TableComponent from "../../Components/Dashboard/TableComponent";
+import TableComponent from "../../../Components/Dashboard/TableComponent";
 
 export default function Products() {
   const [products, setProducts] = useState([]);
@@ -21,6 +21,10 @@ export default function Products() {
   }, []);
 
   const header = [
+    {
+      key:"images",
+      name:"Images"
+    },
     {
       key: "title",
       name: "Title",

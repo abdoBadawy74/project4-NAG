@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Navigate, Outlet, useNavigate } from "react-router-dom";
 import Cookie from "cookie-universal";
-import { USER } from "../../Api/Api";
-import Loading from "../../Components/Loading/Loading";
-import { Axios } from "../../Api/axios";
-import Err403 from "./Err403";
+import { USER } from "../../../Api/Api";
+import Loading from "../../../Components/Loading/Loading";
+import { Axios } from "../../../Api/axios";
+import Err403 from "../Errors/Err403";
 
 export default function RequireAuth({ allowedRole }) {
   const navigate = useNavigate();

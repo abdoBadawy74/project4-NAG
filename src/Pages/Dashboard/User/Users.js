@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { USERS, USER } from "../../Api/Api";
+import { USERS, USER } from "../../../Api/Api";
 import { Table } from "react-bootstrap";
-import { Axios } from "../../Api/axios";
+import { Axios } from "../../../Api/axios";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
-import TableComponent from "../../Components/Dashboard/TableComponent";
+import TableComponent from "../../../Components/Dashboard/TableComponent";
 
 export default function Users() {
   const [users, setUsers] = useState([]);

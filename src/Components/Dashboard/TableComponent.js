@@ -13,24 +13,30 @@ export default function TableComponent(props) {
 
   const dataShow = props.data.map((data, index) => (
     <tr key={index}>
-      <td>{data.id}</td>
+      <td>{index + 1}</td>
       {props.header.map((item, index) => (
         <td key={index}>
-           {
-           item.key === "image" ? <img src={data[item.key]} alt="img" width={"60px"} />
-           :
-          // {/* show role of user upon check of number given from backend or show the value of this attr */}
-          data[item.key] === "1995"
-            ? "admin"
-            : data[item.key] === "2001"
-            ? "User"
-            : data[item.key] === "1996"
-            ? "Writer"
-            : data[item.key] === "1999"
-            ? "Product Manager"
-            : data[item.key]}
+          {item.key === "image" ? (
+            <img src={data[item.key]} alt="img" width={"60px"} />
+          ) : item.key === "images" ? (
+            <div className="d-flex align-items-center justify-content-start gap-2 flex-wrap">
+              {data[item.key].map((img, index) => (
+                <img key={index} src={img.image} alt="img" width={"60px"} />
+              ))}
+            </div>
+          ) : // {/* show role of user upon check of number given from backend or show the value of this attr */}
+          data[item.key] === "1995" ? (
+            "admin"
+          ) : data[item.key] === "2001" ? (
+            "User"
+          ) : data[item.key] === "1996" ? (
+            "Writer"
+          ) : data[item.key] === "1999" ? (
+            "Product Manager"
+          ) : (
+            data[item.key]
+          )}
           {user && data[item.key] === user.name ? " (You)" : ""}
-         
         </td>
       ))}
       <td className="d-flex justify-content-center gap-4">
