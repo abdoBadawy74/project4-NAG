@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Form } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 import { Axios } from "../../Api/axios";
 import { CATEGORIES, PRODUCT } from "../../Api/Api";
 import Loading from "../../Components/Loading/Loading";
@@ -38,6 +38,7 @@ export default function AddProducts() {
   const focus = useRef();
   const openImage = useRef();
   const progess = useRef([]);
+  const ids = useRef([]);
 
   // handle focus
   useEffect(() => {
@@ -118,14 +119,31 @@ export default function AddProducts() {
             const percent = Math.floor((loaded / total) * 100);
             if (percent % 10 === 0) {
               progess.current[count.current].style.width = `${percent}%`;
-              progess.current[count.current].setAttribute("percent", `${percent}%`);
+              progess.current[count.current].setAttribute(
+                "percent",
+                `${percent}%`
+              );
             }
           },
         });
-        // console.log(res);
+        console.log(res);
+        ids.current[count.current] = res.data.id;
       } catch (err) {
         console.log(err);
       }
+    }
+  }
+  // handle delete image
+  async function handleDeleteImage(i, image) {
+    const id = ids.current[i];
+    try {
+      const res = await Axios.delete(`/product-img/${id}`);
+      console.log(res);
+      setImages((prev) => prev.filter((img) => img !== image));
+      ids.current = ids.current.filter((i) => i !== id);
+      count.current--; // decrement the count as we are deleting the image
+    } catch (err) {
+      console.log(err);
     }
   }
 
@@ -138,18 +156,24 @@ export default function AddProducts() {
 
   const imagesShow = images.map((image, i) => (
     <div key={i} className="border w-100 p-2">
-      <div className="d-flex align-items-center justify-content-start gap-2  rounded">
-        <img src={URL.createObjectURL(image)} alt={image.name} width="50" />
-        <div>
-          <p className="mb-1">{image.name}</p>
-          <p className="mb-1 text-secondary">
-            {image.size / 1024 < 900 ? (
-              <> {(image.size / 1024).toFixed(2)} KB</>
-            ) : (
-              <> {(image.size / 1024 / 1024).toFixed(2)} MB</>
-            )}
-          </p>
+      <div className="d-flex align-items-center justify-content-between">
+        <div className="d-flex align-items-center justify-content-start gap-2  rounded">
+          <img src={URL.createObjectURL(image)} alt={image.name} width="50" />
+          <div>
+            <p className="mb-1">{image.name}</p>
+            <p className="mb-1 text-secondary">
+              {image.size / 1024 < 900 ? (
+                <> {(image.size / 1024).toFixed(2)} KB</>
+              ) : (
+                <> {(image.size / 1024 / 1024).toFixed(2)} MB</>
+              )}
+            </p>
+          </div>
         </div>
+        <Button variant="danger" onClick={() => handleDeleteImage(i, image)}>
+          {" "}
+          Delete{" "}
+        </Button>
       </div>
       <div className="custom-progress mt-3">
         <span

@@ -13,7 +13,7 @@ export default function TableComponent(props) {
 
   const dataShow = props.data.map((data, index) => (
     <tr key={index}>
-      <td>{data.id}</td>
+      <td>{index+1}</td>
       {props.header.map((item, index) => (
         <td key={index}>
            {
