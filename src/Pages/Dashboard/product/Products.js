@@ -22,6 +22,10 @@ export default function Products() {
 
   const header = [
     {
+      key:"images",
+      name:"Images"
+    },
+    {
       key: "title",
       name: "Title",
     },
