@@ -37,9 +37,4 @@ export const links = [
     path: "/dashboard/Product/add",
     icon: faPlus,
   },
-  {
-    name: "Writer",
-    path: "/dashboard/writer",
-    icon: faMarker,
-  },
 ];

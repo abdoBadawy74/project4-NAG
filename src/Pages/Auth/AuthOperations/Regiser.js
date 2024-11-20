@@ -27,7 +27,7 @@ export default function Regiser() {
     // handle focus
     useEffect(() => {
       focus.current.focus();
-    })
+    }, []);
 
   // loading state
   const [loading, setLoading] = useState(false);
