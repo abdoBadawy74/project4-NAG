@@ -10,7 +10,11 @@ export default function TableComponent(props) {
   // paginate data
   let paginateData = [];
   if (props.data.length !== 0) {
-    for (let i = 0; i < props.limit; i++) {
+    for (
+      let i = (props.page - 1) * props.limit;
+      i < props.page * props.limit;
+      i++
+    ) {
       paginateData.push(props.data[i]);
     }
   }
@@ -20,9 +24,9 @@ export default function TableComponent(props) {
   ));
   console.log(props.data);
 
-  const dataShow = props.data.map((data, index) => (
+  const dataShow = paginateData.map((data, index) => (
     <tr key={index}>
-      <td>{index + 1}</td>
+      <td>{data.id}</td>
       {props.header.map((item, index) => (
         <td key={index}>
           {item.key === "image" ? (

@@ -7,6 +7,7 @@ import TableComponent from "../../../Components/Dashboard/TableComponent";
 export default function Categories() {
   const [categories, setCategories] = useState([]);
   const [limit, setLimit] = useState(10);
+  const [page, setPage] = useState(2);
 
   // get all categories
   useEffect(() => {
@@ -56,6 +57,7 @@ export default function Categories() {
 
       <TableComponent
         limit={limit}
+        page={page}
         header={header}
         data={categories}
         delete={handleDelete}
