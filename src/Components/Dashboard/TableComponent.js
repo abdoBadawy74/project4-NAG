@@ -6,6 +6,15 @@ import { Link } from "react-router-dom";
 
 export default function TableComponent(props) {
   const user = props.currentUser || false;
+
+  // paginate data
+  let paginateData = [];
+  if (props.data.length !== 0) {
+    for (let i = 0; i < props.limit; i++) {
+      paginateData.push(props.data[i]);
+    }
+  }
+
   const headerShow = props.header.map((head, index) => (
     <th key={index}>{head.name}</th>
   ));
