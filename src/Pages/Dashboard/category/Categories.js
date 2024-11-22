@@ -8,7 +8,7 @@ import PaginatedItems from "../../../Components/Pagination/Pagination";
 
 export default function Categories() {
   const [categories, setCategories] = useState([]);
-  const [limit, setLimit] = useState(10);
+  const [limit, setLimit] = useState(5);
   const [page, setPage] = useState(1);
 
   // get all categories
@@ -64,7 +64,7 @@ export default function Categories() {
         data={categories}
         delete={handleDelete}
       />
-      <PaginatedItems itemsPerPage={5}/>
+      <PaginatedItems itemsPerPage={5} setPage={setPage} data={categories} />
     </div>
   );
 }
