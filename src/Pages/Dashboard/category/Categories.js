@@ -3,12 +3,11 @@ import { CATEGORIES, CATEGORY } from "../../../Api/Api";
 import { Axios } from "../../../Api/axios";
 import { Link } from "react-router-dom";
 import TableComponent from "../../../Components/Dashboard/TableComponent";
-import ReactPaginate from "react-paginate";
 import PaginatedItems from "../../../Components/Pagination/Pagination";
 
 export default function Categories() {
   const [categories, setCategories] = useState([]);
-  const [limit, setLimit] = useState(5);
+  const limit = 5;
   const [page, setPage] = useState(1);
 
   // get all categories
@@ -63,8 +62,8 @@ export default function Categories() {
         header={header}
         data={categories}
         delete={handleDelete}
+        setPage={setPage}
       />
-      <PaginatedItems itemsPerPage={5} setPage={setPage} data={categories} />
     </div>
   );
 }

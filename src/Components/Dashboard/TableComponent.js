@@ -3,28 +3,21 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import PaginatedItems from "../Pagination/Pagination";
 
 export default function TableComponent(props) {
   const user = props.currentUser || false;
 
-  // paginate data
-  let paginateData = [];
-  if (props.data.length !== 0) {
-    for (
-      let i = (props.page - 1) * props.limit;
-      i < props.page * props.limit;
-      i++
-    ) {
-      paginateData.push(props.data[i]);
-    }
-  }
+const start = (props.page - 1) * props.limit;
+  const end = start + props.limit;
+  const final = props.data.slice(start, end);
 
   const headerShow = props.header.map((head, index) => (
     <th key={index}>{head.name}</th>
   ));
   console.log(props.data);
 
-  const dataShow = paginateData.map((data, index) => (
+  const dataShow = final.map((data, index) => (
     <tr key={index}>
       <td>{data.id}</td>
       {props.header.map((item, index) => (
@@ -67,26 +60,33 @@ export default function TableComponent(props) {
   ));
 
   return (
-    <Table striped bordered hover className="text-center">
-      <thead>
-        <tr>
-          <th>Id</th>
-          {headerShow}
-          <th>Action</th>
-        </tr>
-      </thead>
-
-      <tbody>
-        {props.data.length === 0 && (
+    <>
+      <Table striped bordered hover className="text-center">
+        <thead>
           <tr>
-            <td colSpan={12}>
-              {" "}
-              <h2>Loading...</h2>
-            </td>
+            <th>Id</th>
+            {headerShow}
+            <th>Action</th>
           </tr>
-        )}
-        {dataShow}
-      </tbody>
-    </Table>
+        </thead>
+
+        <tbody>
+          {props.data.length === 0 && (
+            <tr>
+              <td colSpan={12}>
+                {" "}
+                <h2>Loading...</h2>
+              </td>
+            </tr>
+          )}
+          {dataShow}
+        </tbody>
+      </Table>
+      <PaginatedItems
+        itemsPerPage={props.limit}
+        setPage={props.setPage}
+        data={props.data}
+      />
+    </>
   );
 }

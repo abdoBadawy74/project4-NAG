@@ -11,7 +11,7 @@ export default function PaginatedItems({ itemsPerPage, data,setPage }) {
                 breakLabel="..."
                 nextLabel=">>"
                 onPageChange={(e)=> setPage(e.selected+1) }
-                pageRangeDisplayed={5}
+                pageRangeDisplayed={2}
                 pageCount={pageCount}
                 previousLabel="<<"
                 renderOnZeroPageCount={null}
