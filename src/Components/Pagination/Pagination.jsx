@@ -2,15 +2,15 @@ import ReactPaginate from "react-paginate";
 import "./Pagination.css";
 
 
-export default function PaginatedItems({ itemsPerPage, data,setPage }) {
-    const pageCount = data.length / itemsPerPage;
+export default function PaginatedItems({ itemsPerPage, data, setPage,total }) {
+    const pageCount = Math.ceil(total / itemsPerPage);
 
     return (
         <>
             <ReactPaginate
                 breakLabel="..."
                 nextLabel=">>"
-                onPageChange={(e)=> setPage(e.selected+1) }
+                onPageChange={(e) => setPage(e.selected + 1)}
                 pageRangeDisplayed={2}
                 pageCount={pageCount}
                 previousLabel="<<"

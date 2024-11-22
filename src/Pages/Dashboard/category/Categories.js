@@ -3,25 +3,29 @@ import { CATEGORIES, CATEGORY } from "../../../Api/Api";
 import { Axios } from "../../../Api/axios";
 import { Link } from "react-router-dom";
 import TableComponent from "../../../Components/Dashboard/TableComponent";
-import PaginatedItems from "../../../Components/Pagination/Pagination";
 
 export default function Categories() {
   const [categories, setCategories] = useState([]);
-  const [limit,setLimit]=useState(3)
+  const [limit, setLimit] = useState(3);
   const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const [total, setTotal] = useState(0);
 
   // get all categories
   useEffect(() => {
-    Axios.get(`/${CATEGORIES}`)
+    setLoading(true);
+    Axios.get(`/${CATEGORIES}?limit=${limit}&page=${page}`)
       .then((res) => {
         console.log(res);
-        setCategories(res.data);
+        setCategories(res.data.data);
+        setTotal(res.data.total);
       })
 
       .catch((err) => {
         console.log(err);
-      });
-  }, []);
+      })
+      .finally(() => setLoading(false));
+  }, [limit, page]);
 
   const header = [
     {
@@ -64,6 +68,8 @@ export default function Categories() {
         data={categories}
         delete={handleDelete}
         setPage={setPage}
+        loading={loading}
+        total={total}
       />
     </div>
   );

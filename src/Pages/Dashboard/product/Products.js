@@ -6,21 +6,26 @@ import TableComponent from "../../../Components/Dashboard/TableComponent";
 
 export default function Products() {
   const [products, setProducts] = useState([]);
-  const [limit,setLimit]=useState(3)
+  const [limit, setLimit] = useState(3);
   const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const [total, setTotal] = useState(0);
 
   // get all users
   useEffect(() => {
-    Axios.get(`/${PRODUCTS}`)
+    setLoading(true);
+    Axios.get(`/${PRODUCTS}?limit=${limit}&page=${page}`)
       .then((res) => {
         console.log(res);
-        setProducts(res.data);
+        setProducts(res.data.data);
+        setTotal(res.data.total);
       })
 
       .catch((err) => {
         console.log(err);
-      });
-  }, []);
+      })
+      .finally(() => setLoading(false));
+  }, [limit, page]);
 
   const header = [
     {
@@ -75,6 +80,8 @@ export default function Products() {
         data={products}
         delete={handleDelete}
         setPage={setPage}
+        loading={loading}
+        total={total}
       />
     </div>
   );
