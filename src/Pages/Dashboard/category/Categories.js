@@ -7,7 +7,7 @@ import PaginatedItems from "../../../Components/Pagination/Pagination";
 
 export default function Categories() {
   const [categories, setCategories] = useState([]);
-  const limit = 5;
+  const [limit,setLimit]=useState(3)
   const [page, setPage] = useState(1);
 
   // get all categories
@@ -58,6 +58,7 @@ export default function Categories() {
 
       <TableComponent
         limit={limit}
+        setLimit={setLimit}
         page={page}
         header={header}
         data={categories}

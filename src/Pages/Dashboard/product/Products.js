@@ -6,7 +6,7 @@ import TableComponent from "../../../Components/Dashboard/TableComponent";
 
 export default function Products() {
   const [products, setProducts] = useState([]);
-  const [limit, setLimit] = useState(10);
+  const [limit,setLimit]=useState(3)
   const [page, setPage] = useState(1);
 
   // get all users
@@ -69,10 +69,12 @@ export default function Products() {
 
       <TableComponent
         limit={limit}
+        setLimit={setLimit}
         page={page}
         header={header}
         data={products}
         delete={handleDelete}
+        setPage={setPage}
       />
     </div>
   );
