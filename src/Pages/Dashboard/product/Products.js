@@ -6,6 +6,8 @@ import TableComponent from "../../../Components/Dashboard/TableComponent";
 
 export default function Products() {
   const [products, setProducts] = useState([]);
+  const [limit,setLimit]=useState(3)
+  const [page, setPage] = useState(1);
 
   // get all users
   useEffect(() => {
@@ -22,8 +24,8 @@ export default function Products() {
 
   const header = [
     {
-      key:"images",
-      name:"Images"
+      key: "images",
+      name: "Images",
     },
     {
       key: "title",
@@ -65,7 +67,15 @@ export default function Products() {
         </Link>
       </div>
 
-      <TableComponent header={header} data={products} delete={handleDelete} />
+      <TableComponent
+        limit={limit}
+        setLimit={setLimit}
+        page={page}
+        header={header}
+        data={products}
+        delete={handleDelete}
+        setPage={setPage}
+      />
     </div>
   );
 }

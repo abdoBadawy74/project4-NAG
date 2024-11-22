@@ -10,6 +10,8 @@ import TableComponent from "../../../Components/Dashboard/TableComponent";
 export default function Users() {
   const [users, setUsers] = useState([]);
   const [currentUser, setCurrentUser] = useState({});
+  const [limit,setLimit]=useState(3)
+  const [page, setPage] = useState(1);
 
   // get current user
   useEffect(() => {
@@ -80,6 +82,10 @@ export default function Users() {
         data={users}
         currentUser={currentUser}
         delete={handleDelete}
+        limit={limit}
+        setLimit={setLimit}
+        page={page}
+        setPage={setPage}
       />
     </div>
   );

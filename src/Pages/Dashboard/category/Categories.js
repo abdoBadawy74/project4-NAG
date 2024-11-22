@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { CATEGORIES,CATEGORY } from "../../../Api/Api";
+import { CATEGORIES, CATEGORY } from "../../../Api/Api";
 import { Axios } from "../../../Api/axios";
 import { Link } from "react-router-dom";
 import TableComponent from "../../../Components/Dashboard/TableComponent";
+import PaginatedItems from "../../../Components/Pagination/Pagination";
 
 export default function Categories() {
   const [categories, setCategories] = useState([]);
+  const [limit,setLimit]=useState(3)
+  const [page, setPage] = useState(1);
 
   // get all categories
   useEffect(() => {
@@ -53,7 +56,15 @@ export default function Categories() {
         </Link>
       </div>
 
-      <TableComponent header={header} data={categories} delete={handleDelete} />
+      <TableComponent
+        limit={limit}
+        setLimit={setLimit}
+        page={page}
+        header={header}
+        data={categories}
+        delete={handleDelete}
+        setPage={setPage}
+      />
     </div>
   );
 }
