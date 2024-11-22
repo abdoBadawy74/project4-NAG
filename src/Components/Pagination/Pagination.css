@@ -1,0 +1,14 @@
+.custom-pagination {
+  list-style: none !important;
+}
+.pagination-link {
+  width: 30px;
+  height: 30px;
+  display: inline-block;
+  line-height: 30px;
+  transition: 0.3s;
+}
+.pagination-link:hover {
+  background-color: #d3d6d6;
+  color: #000 !important;
+}
