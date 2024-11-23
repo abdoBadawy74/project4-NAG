@@ -3,6 +3,7 @@ import { CATEGORIES, CATEGORY } from "../../../Api/Api";
 import { Axios } from "../../../Api/axios";
 import { Link } from "react-router-dom";
 import TableComponent from "../../../Components/Dashboard/TableComponent";
+import { Form } from "react-bootstrap";
 
 export default function Categories() {
   const [categories, setCategories] = useState([]);
@@ -10,6 +11,7 @@ export default function Categories() {
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [total, setTotal] = useState(0);
+  const [search, setSearch] = useState("");
 
   // get all categories
   useEffect(() => {
@@ -51,6 +53,21 @@ export default function Categories() {
     }
   }
 
+  async function getSearchedData() {
+    try {
+      const res = await Axios.post(`${CATEGORY}/search?title=${search}`);
+      console.log(res);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  useEffect(() => {
+    const debounce = setTimeout(() => {
+      getSearchedData();
+    }, 800);
+    return () => clearTimeout(debounce);
+  }, [search]);
+
   return (
     <div className="bg-white w-100 p-2">
       <div className="d-flex align-items-center justify-content-between my-3">
@@ -59,6 +76,15 @@ export default function Categories() {
           Add category
         </Link>
       </div>
+
+      <Form.Control
+        className="my-2"
+        type="search"
+        aria-label="input example"
+        placeholder="search"
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+      />
 
       <TableComponent
         limit={limit}
