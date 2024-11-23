@@ -3,6 +3,7 @@ import { CATEGORIES, CATEGORY } from "../../../Api/Api";
 import { Axios } from "../../../Api/axios";
 import { Link } from "react-router-dom";
 import TableComponent from "../../../Components/Dashboard/TableComponent";
+import { Form } from "react-bootstrap";
 
 export default function Categories() {
   const [categories, setCategories] = useState([]);
@@ -10,6 +11,7 @@ export default function Categories() {
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [total, setTotal] = useState(0);
+  const [search, setSearch] = useState("");
 
   // get all categories
   useEffect(() => {
@@ -60,6 +62,15 @@ export default function Categories() {
         </Link>
       </div>
 
+      {/* <Form.Control
+        className="my-2"
+        type="search"
+        aria-label="input example"
+        placeholder="search"
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+      /> */}
+
       <TableComponent
         limit={limit}
         setLimit={setLimit}
@@ -70,6 +81,8 @@ export default function Categories() {
         setPage={setPage}
         loading={loading}
         total={total}
+        searchItem="title"
+        searchLink={CATEGORY}
       />
     </div>
   );

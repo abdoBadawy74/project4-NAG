@@ -35,7 +35,7 @@ export default function AddUser() {
     // handle focus
     useEffect(() => {
       focus.current.focus();
-    })
+    },[])
 
   //   console.log(name);
   //   console.log(email);

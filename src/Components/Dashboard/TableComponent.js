@@ -1,19 +1,44 @@
 import { faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Table, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import PaginatedItems from "../Pagination/Pagination";
+import { Axios } from "../../Api/axios";
 
 export default function TableComponent(props) {
   const user = props.currentUser || false;
+  const [search, setSearch] = useState("");
+  const [filteredData, setFilteredData] = useState([]);
+  const [searchLoading, setSearchLoading] = useState(true);
+
+  const show = search.length > 0 ? filteredData : props.data;
+
+  async function getSearchedData() {
+    try {
+      const res = await Axios.post(
+        `${props.searchLink}/search?title=${search}`
+      );
+      setFilteredData(res.data);
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setSearchLoading(false);
+    }
+  }
+  useEffect(() => {
+    const debounce = setTimeout(() => {
+      search.length > 0 && getSearchedData();
+    }, 500);
+    return () => clearTimeout(debounce);
+  }, [search]);
 
   const headerShow = props.header.map((head, index) => (
     <th key={index}>{head.name}</th>
   ));
   console.log(props.data);
 
-  const dataShow = props.data.map((data, index) => (
+  const dataShow = show.map((data, index) => (
     <tr key={index}>
       <td>{data.id}</td>
       {props.header.map((item, index) => (
@@ -57,6 +82,18 @@ export default function TableComponent(props) {
 
   return (
     <>
+      <div className="col-3">
+        <Form.Control
+          className="my-2"
+          type="search"
+          aria-label="input example"
+          placeholder="search..."
+          onChange={(e) => {
+            setSearch(e.target.value);
+            setSearchLoading(true);
+          }}
+        ></Form.Control>
+      </div>
       <Table striped bordered hover className="text-center">
         <thead>
           <tr>
@@ -72,6 +109,13 @@ export default function TableComponent(props) {
               <td colSpan={12}>
                 {" "}
                 <h2>Loading...</h2>
+              </td>
+            </tr>
+          ) : searchLoading ? (
+            <tr>
+              <td colSpan={12}>
+                {" "}
+                <h2>searching...</h2>
               </td>
             </tr>
           ) : (
