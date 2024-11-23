@@ -8,19 +8,12 @@ import PaginatedItems from "../Pagination/Pagination";
 export default function TableComponent(props) {
   const user = props.currentUser || false;
 
-  const start = (props.page - 1) * props.limit;
-  const end = parseInt(start) + parseInt(props.limit);
-  const final = props.data.slice(start, end);
-  console.log(start);
-  console.log(end);
-  console.log(final);
-
   const headerShow = props.header.map((head, index) => (
     <th key={index}>{head.name}</th>
   ));
   console.log(props.data);
 
-  const dataShow = final.map((data, index) => (
+  const dataShow = props.data.map((data, index) => (
     <tr key={index}>
       <td>{data.id}</td>
       {props.header.map((item, index) => (
@@ -74,15 +67,16 @@ export default function TableComponent(props) {
         </thead>
 
         <tbody>
-          {props.data.length === 0 && (
+          {props.loading ? (
             <tr>
               <td colSpan={12}>
                 {" "}
                 <h2>Loading...</h2>
               </td>
             </tr>
+          ) : (
+            dataShow
           )}
-          {dataShow}
         </tbody>
       </Table>
       <div className="d-flex align-items-center justify-content-end flex-wrap">
@@ -91,7 +85,6 @@ export default function TableComponent(props) {
             onChange={(e) => props.setLimit(e.target.value)}
             aria-label="Default select example"
           >
-            <option>Open this menu</option>
             <option value={3}>3</option>
             <option value={5}>5</option>
             <option value={10}>10</option>
@@ -102,6 +95,7 @@ export default function TableComponent(props) {
           itemsPerPage={props.limit}
           setPage={props.setPage}
           data={props.data}
+          total={props.total}
           className="m-0"
         />
       </div>

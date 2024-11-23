@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { USERS, USER } from "../../../Api/Api";
-import { Table } from "react-bootstrap";
 import { Axios } from "../../../Api/axios";
 import { Link } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
 import TableComponent from "../../../Components/Dashboard/TableComponent";
 
 export default function Users() {
   const [users, setUsers] = useState([]);
   const [currentUser, setCurrentUser] = useState({});
-  const [limit,setLimit]=useState(3)
+  const [limit, setLimit] = useState(3);
   const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const [total, setTotal] = useState(0);
 
   // get current user
   useEffect(() => {
@@ -27,14 +26,17 @@ export default function Users() {
 
   // get all users
   useEffect(() => {
+    setLoading(true);
     Axios.get(`/${USERS}`)
       .then((res) => {
         console.log(res);
-        setUsers(res.data);
+        setUsers(res.data.data);
+        setTotal(res.data.total);
       })
       .catch((err) => {
         console.log(err);
-      });
+      })
+      .finally(() => setLoading(false));
   }, []);
 
   const header = [
@@ -86,6 +88,8 @@ export default function Users() {
         setLimit={setLimit}
         page={page}
         setPage={setPage}
+        loading={loading}
+        total={total}
       />
     </div>
   );
