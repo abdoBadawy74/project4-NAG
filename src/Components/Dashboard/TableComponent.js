@@ -10,10 +10,15 @@ import TransformDate from "../../Helpers/TransformDate";
 export default function TableComponent(props) {
   const user = props.currentUser || false;
   const [search, setSearch] = useState("");
+  const [date, setDate] = useState("");
   const [filteredData, setFilteredData] = useState([]);
   const [searchLoading, setSearchLoading] = useState(false);
 
-  const show = search.length > 0 ? filteredData : props.data;
+  const filteredDataByDate = props.data.filter(
+    (data) => TransformDate(data.created_at) === date
+  );
+
+  const show = search.length > 0 ? filteredData : filteredDataByDate;
 
   async function getSearchedData() {
     try {
@@ -83,6 +88,7 @@ export default function TableComponent(props) {
     </tr>
   ));
 
+  console.log(date);
   return (
     <>
       <div className="col-3">
@@ -93,6 +99,18 @@ export default function TableComponent(props) {
           placeholder="search..."
           onChange={(e) => {
             setSearch(e.target.value);
+            setSearchLoading(false);
+          }}
+        ></Form.Control>
+      </div>
+      <div className="col-5">
+        <Form.Control
+          className="my-2"
+          type="date"
+          aria-label="input example"
+          placeholder="search..."
+          onChange={(e) => {
+            setDate(e.target.value);
             setSearchLoading(false);
           }}
         ></Form.Control>
