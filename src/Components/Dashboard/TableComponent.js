@@ -18,7 +18,18 @@ export default function TableComponent(props) {
     (data) => TransformDate(data.created_at) === date
   );
 
-  const show = search.length > 0 ? filteredData : filteredDataByDate;
+  const filterSearchByDate = filteredData.filter(
+    (data) => TransformDate(data.created_at) === date
+  );
+
+  const show =
+    date.length > 0
+      ? search.length > 0
+        ? filterSearchByDate
+        : filteredDataByDate
+      : search.length > 0
+      ? filteredData
+      : props.data;
 
   async function getSearchedData() {
     try {
