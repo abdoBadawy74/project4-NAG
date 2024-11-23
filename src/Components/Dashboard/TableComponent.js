@@ -1,19 +1,28 @@
 import { faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
+import React, { useState } from "react";
 import { Table, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import PaginatedItems from "../Pagination/Pagination";
 
 export default function TableComponent(props) {
   const user = props.currentUser || false;
+  const [search, setSearch] = useState("");
+
+  const filteredData = props.data.filter((item) =>
+    item.title.toLowerCase().includes(search.toLocaleLowerCase())
+  );
+
+  function handelSearch(e) {
+    setSearch(e.target.value);
+  }
 
   const headerShow = props.header.map((head, index) => (
     <th key={index}>{head.name}</th>
   ));
   console.log(props.data);
 
-  const dataShow = props.data.map((data, index) => (
+  const dataShow = filteredData.map((data, index) => (
     <tr key={index}>
       <td>{data.id}</td>
       {props.header.map((item, index) => (
@@ -57,6 +66,15 @@ export default function TableComponent(props) {
 
   return (
     <>
+      <div className="col-3">
+        <Form.Control
+          className="my-2"
+          type="search"
+          aria-label="input example"
+          placeholder="search..."
+          onChange={handelSearch}
+        ></Form.Control>
+      </div>
       <Table striped bordered hover className="text-center">
         <thead>
           <tr>
