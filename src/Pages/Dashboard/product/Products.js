@@ -83,6 +83,7 @@ export default function Products() {
         loading={loading}
         total={total}
         searchItem="title"
+        searchLink={PRODUCT}
       />
     </div>
   );

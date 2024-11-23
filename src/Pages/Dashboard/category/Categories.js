@@ -53,21 +53,6 @@ export default function Categories() {
     }
   }
 
-  async function getSearchedData() {
-    try {
-      const res = await Axios.post(`${CATEGORY}/search?title=${search}`);
-      console.log(res);
-    } catch (err) {
-      console.log(err);
-    }
-  }
-  useEffect(() => {
-    const debounce = setTimeout(() => {
-      getSearchedData();
-    }, 800);
-    return () => clearTimeout(debounce);
-  }, [search]);
-
   return (
     <div className="bg-white w-100 p-2">
       <div className="d-flex align-items-center justify-content-between my-3">
@@ -77,14 +62,14 @@ export default function Categories() {
         </Link>
       </div>
 
-      <Form.Control
+      {/* <Form.Control
         className="my-2"
         type="search"
         aria-label="input example"
         placeholder="search"
         value={search}
         onChange={(e) => setSearch(e.target.value)}
-      />
+      /> */}
 
       <TableComponent
         limit={limit}
@@ -97,6 +82,7 @@ export default function Categories() {
         loading={loading}
         total={total}
         searchItem="title"
+        searchLink={CATEGORY}
       />
     </div>
   );

@@ -91,6 +91,7 @@ export default function Users() {
         loading={loading}
         total={total}
         searchItem="name"
+        searchLink={USER}
       />
     </div>
   );
