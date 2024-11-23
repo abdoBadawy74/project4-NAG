@@ -10,7 +10,7 @@ export default function TableComponent(props) {
   const user = props.currentUser || false;
   const [search, setSearch] = useState("");
   const [filteredData, setFilteredData] = useState([]);
-  const [searchLoading, setSearchLoading] = useState(true);
+  const [searchLoading, setSearchLoading] = useState(false);
 
   const show = search.length > 0 ? filteredData : props.data;
 
@@ -38,16 +38,16 @@ export default function TableComponent(props) {
   ));
   console.log(props.data);
 
-  const dataShow = show.map((data, index) => (
+  const dataShow = show?.map((data, index) => (
     <tr key={index}>
-      <td>{data.id}</td>
+      <td>{data?.id}</td>
       {props.header.map((item, index) => (
         <td key={index}>
           {item.key === "image" ? (
             <img src={data[item.key]} alt="img" width={"60px"} />
           ) : item.key === "images" ? (
             <div className="d-flex align-items-center justify-content-start gap-2 flex-wrap">
-              {data[item.key].map((img, index) => (
+              {data[item?.key]?.map((img, index) => (
                 <img key={index} src={img.image} alt="img" width={"60px"} />
               ))}
             </div>
@@ -79,7 +79,7 @@ export default function TableComponent(props) {
       </td>
     </tr>
   ));
-
+  console.log(searchLoading);
   return (
     <>
       <div className="col-3">
@@ -90,7 +90,7 @@ export default function TableComponent(props) {
           placeholder="search..."
           onChange={(e) => {
             setSearch(e.target.value);
-            setSearchLoading(true);
+            setSearchLoading(false);
           }}
         ></Form.Control>
       </div>
