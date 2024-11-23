@@ -52,6 +52,14 @@ export default function Users() {
       name: "Role",
       key: "role",
     },
+    {
+      name: "Created",
+      key: "created_at",
+    },
+    {
+      name: "Updated",
+      key: "updated_at",
+    },
   ];
 
   // handle delete user function
