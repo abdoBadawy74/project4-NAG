@@ -10,7 +10,7 @@ export default function TableComponent(props) {
   const [search, setSearch] = useState("");
 
   const filteredData = props.data.filter((item) =>
-    item.title.toLowerCase().includes(search.toLocaleLowerCase())
+    item[props.searchItem].toLowerCase().includes(search.toLowerCase())
   );
 
   function handelSearch(e) {

@@ -70,6 +70,7 @@ export default function Categories() {
         setPage={setPage}
         loading={loading}
         total={total}
+        searchItem="title"
       />
     </div>
   );

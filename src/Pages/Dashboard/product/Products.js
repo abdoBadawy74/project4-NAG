@@ -82,6 +82,7 @@ export default function Products() {
         setPage={setPage}
         loading={loading}
         total={total}
+        searchItem="title"
       />
     </div>
   );

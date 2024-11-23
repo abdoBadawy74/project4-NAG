@@ -90,6 +90,7 @@ export default function Users() {
         setPage={setPage}
         loading={loading}
         total={total}
+        searchItem="name"
       />
     </div>
   );
