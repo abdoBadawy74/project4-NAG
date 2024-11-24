@@ -4,6 +4,7 @@ import { Axios } from "../../../Api/axios";
 import { Link } from "react-router-dom";
 import TableComponent from "../../../Components/Dashboard/TableComponent";
 import { Form } from "react-bootstrap";
+import TransformDate from "../../../Helpers/TransformDate";
 
 export default function Categories() {
   const [categories, setCategories] = useState([]);
@@ -38,6 +39,14 @@ export default function Categories() {
       name: "image",
       key: "image",
     },
+    {
+      name:"Created",
+      key:"created_at"
+    },
+    {
+      name: "Updated",
+      key: "updated_at",
+    },
   ];
 
   // handle delete user function
@@ -52,6 +61,7 @@ export default function Categories() {
       console.log(err);
     }
   }
+  TransformDate("2021-09-02T15:00:00.000Z");
 
   return (
     <div className="bg-white w-100 p-2">
@@ -61,15 +71,6 @@ export default function Categories() {
           Add category
         </Link>
       </div>
-
-      {/* <Form.Control
-        className="my-2"
-        type="search"
-        aria-label="input example"
-        placeholder="search"
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-      /> */}
 
       <TableComponent
         limit={limit}

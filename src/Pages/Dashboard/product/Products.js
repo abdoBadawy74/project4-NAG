@@ -48,6 +48,14 @@ export default function Products() {
       name: "Rating",
       key: "rating",
     },
+    {
+      name: "Created",
+      key: "created_at",
+    },
+    {
+      name: "Updated",
+      key: "updated_at",
+    },
   ];
 
   // handle delete user function

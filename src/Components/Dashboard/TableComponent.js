@@ -5,14 +5,31 @@ import { Table, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import PaginatedItems from "../Pagination/Pagination";
 import { Axios } from "../../Api/axios";
+import TransformDate from "../../Helpers/TransformDate";
 
 export default function TableComponent(props) {
   const user = props.currentUser || false;
   const [search, setSearch] = useState("");
+  const [date, setDate] = useState("");
   const [filteredData, setFilteredData] = useState([]);
   const [searchLoading, setSearchLoading] = useState(false);
 
-  const show = search.length > 0 ? filteredData : props.data;
+  const filteredDataByDate = props.data.filter(
+    (data) => TransformDate(data.created_at) === date
+  );
+
+  const filterSearchByDate = filteredData.filter(
+    (data) => TransformDate(data.created_at) === date
+  );
+
+  const show =
+    date.length > 0
+      ? search.length > 0
+        ? filterSearchByDate
+        : filteredDataByDate
+      : search.length > 0
+      ? filteredData
+      : props.data;
 
   async function getSearchedData() {
     try {
@@ -36,7 +53,7 @@ export default function TableComponent(props) {
   const headerShow = props.header.map((head, index) => (
     <th key={index}>{head.name}</th>
   ));
-  console.log(props.data);
+  // console.log(props.data);
 
   const dataShow = show?.map((data, index) => (
     <tr key={index}>
@@ -54,6 +71,8 @@ export default function TableComponent(props) {
           ) : // {/* show role of user upon check of number given from backend or show the value of this attr */}
           data[item.key] === "1995" ? (
             "admin"
+          ) : item.key === "created_at" || item.key === "updated_at" ? (
+            TransformDate(data[item.key])
           ) : data[item.key] === "2001" ? (
             "User"
           ) : data[item.key] === "1996" ? (
@@ -79,7 +98,8 @@ export default function TableComponent(props) {
       </td>
     </tr>
   ));
-  console.log(searchLoading);
+
+  console.log(date);
   return (
     <>
       <div className="col-3">
@@ -90,6 +110,18 @@ export default function TableComponent(props) {
           placeholder="search..."
           onChange={(e) => {
             setSearch(e.target.value);
+            setSearchLoading(false);
+          }}
+        ></Form.Control>
+      </div>
+      <div className="col-5">
+        <Form.Control
+          className="my-2"
+          type="date"
+          aria-label="input example"
+          placeholder="search..."
+          onChange={(e) => {
+            setDate(e.target.value);
             setSearchLoading(false);
           }}
         ></Form.Control>
