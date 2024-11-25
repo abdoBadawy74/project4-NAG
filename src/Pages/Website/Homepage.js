@@ -1,5 +1,8 @@
 import React from "react";
+import Navbar from "../../Components/Website/NavBar/NavBar";
 
 export default function Homepage() {
-  return <h1>Homepage</h1>;
+  return <>
+  <Navbar/>
+  </>;
 }
