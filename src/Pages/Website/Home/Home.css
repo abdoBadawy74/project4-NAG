@@ -1,0 +1,20 @@
+.hand {
+  background-image: url("../../../images/hero.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
+  position: relative;
+}
+.hand::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+.hand .container {
+  z-index: 1;
+}

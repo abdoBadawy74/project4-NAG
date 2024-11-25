@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import Homepage from "./Pages/Website/Homepage";
+import Homepage from "./Pages/Website/Home/Homepage";
 import RequireBack from "./Pages/Auth/protecting/RequireBack";
 import Login from "./Pages/Auth/AuthOperations/Login";
 import Regiser from "./Pages/Auth/AuthOperations/Regiser";
