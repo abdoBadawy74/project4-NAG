@@ -37,7 +37,7 @@ export default function Users() {
         console.log(err);
       })
       .finally(() => setLoading(false));
-  }, []);
+  }, [page, limit]);
 
   const header = [
     {
