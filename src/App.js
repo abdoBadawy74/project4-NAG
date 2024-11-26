@@ -18,6 +18,7 @@ import Products from "./Pages/Dashboard/product/Products";
 import AddProducts from "./Pages/Dashboard/product/AddProduct";
 import Writer from "./Pages/Dashboard/Writer";
 import UpdateProduct from "./Pages/Dashboard/product/Product";
+import WebsiteCategories from "./Components/Website/Categories/Categories";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
       <Routes>
         {/* public routes */}
         <Route path="/" element={<Homepage />} />
+        <Route path="/categories" element={<WebsiteCategories/>} />
         <Route element={<RequireBack />}>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Regiser />} />

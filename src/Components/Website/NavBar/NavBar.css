@@ -1,0 +1,7 @@
+.category-link {
+  transition:  0.3s;
+}
+.category-link:hover {
+  
+  color: #1448f3 !important;
+}
