@@ -1,10 +1,35 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { Axios } from "../../../Api/axios";
+import { CATEGORIES } from "../../../Api/Api";
 import { Container, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { faCartShopping, faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function NavBar() {
+  const [categories, setCategories] = useState([]);
+  useEffect(() => {
+    Axios.get(`${CATEGORIES}`)
+      .then((res) => {
+        console.log(res);
+        setCategories(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+  console.log(categories);
+
+  const categoriesShow = categories
+    .slice(-8)
+    .map((category) => (
+      <p key={category.id}>
+        {category.title.length > 15
+          ? category.title.slice(1, 10) + "..."
+          : category.title}
+      </p>
+    ));
+
   return (
     <nav className="py-3">
       <Container>
@@ -38,6 +63,12 @@ export default function NavBar() {
             >
               <FontAwesomeIcon icon={faUser} />
             </Link>
+          </div>
+        </div>
+
+        <div className="mt-3">
+          <div className="d-flex justiy-content-start align-items-center gap-4">
+            {categoriesShow}
           </div>
         </div>
       </Container>
