@@ -1,15 +1,33 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../../../Components/Website/NavBar/NavBar";
 import { Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import "./Home.css";
+import { Axios } from "../../../Api/axios";
+import { CATEGORIES } from "../../../Api/Api";
 
 export default function Homepage() {
+  const [categories, setCategories] = useState([]);
+  useEffect(() => {
+    Axios.get(`${CATEGORIES}`)
+      .then((res) => {
+        console.log(res);
+        setCategories(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+  console.log(categories);
+
+  const categoriesShow = categories.slice(-5).map((category) => <h3 key={category.id}>{category.title}</h3> );
+
   return (
     <>
       <Navbar />
       <div className="d-flex align-items-center justify-content-between flex-wrap hand">
         <Container>
+         
           <div className="col-lg-5 col-md-8 col-12 text-md-start text-center">
             <h1 className="display-2 fw-bold">Shampo Nice</h1>
             <h5 className="fw-normal">
@@ -23,6 +41,7 @@ export default function Homepage() {
               Shop Now
             </Link>
           </div>
+          <div className="d">{categoriesShow}</div>
         </Container>
       </div>
     </>
