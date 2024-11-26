@@ -3,6 +3,7 @@ import { Axios } from "../../../Api/axios";
 import { CATEGORIES } from "../../../Api/Api";
 import { Container } from "react-bootstrap";
 import "./Categories.css";
+import TitleSlice from "../../../Helpers/TitleSlice";
 
 export default function WebsiteCategories() {
   const [categories, setCategories] = useState([]);
@@ -25,14 +26,12 @@ export default function WebsiteCategories() {
       <div className="m-1 bg-white d-flex align-items-center justify-content-start rounded gap-4 py-2 h-100 px-2">
         <img
           src={category.image}
-          alt={category.title.slice(0,3)}
+          alt={category.title.slice(0, 3)}
           width={50}
           className="img-fluid"
         />
         <p key={category.id} className="m-0">
-          {category.title.length > 15
-            ? category.title.slice(1, 10) + "..."
-            : category.title}
+          {TitleSlice(category.title, 0, 15)}
         </p>
       </div>
     </div>

@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { faCartShopping, faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./NavBar.css";
+import TitleSlice from "../../../Helpers/TitleSlice";
 
 export default function NavBar() {
   const [categories, setCategories] = useState([]);
@@ -23,9 +24,7 @@ export default function NavBar() {
 
   const categoriesShow = categories.slice(-8).map((category) => (
     <p key={category.id} className="m-0">
-      {category.title.length > 15
-        ? category.title.slice(1, 10) + "..."
-        : category.title}
+      {TitleSlice(category.title, 0, 10)}
     </p>
   ));
 
