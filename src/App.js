@@ -19,14 +19,17 @@ import AddProducts from "./Pages/Dashboard/product/AddProduct";
 import Writer from "./Pages/Dashboard/Writer";
 import UpdateProduct from "./Pages/Dashboard/product/Product";
 import WebsiteCategories from "./Components/Website/Categories/Categories";
+import Website from "./Components/Website/Website";
 
 function App() {
   return (
     <div className="App">
       <Routes>
         {/* public routes */}
-        <Route path="/" element={<Homepage />} />
-        <Route path="/categories" element={<WebsiteCategories/>} />
+        <Route element={<Website />}>
+          <Route path="/" element={<Homepage />} />
+          <Route path="/categories" element={<WebsiteCategories />} />
+        </Route>
         <Route element={<RequireBack />}>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Regiser />} />

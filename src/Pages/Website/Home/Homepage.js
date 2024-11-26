@@ -1,4 +1,3 @@
-import Navbar from "../../../Components/Website/NavBar/NavBar";
 import { Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import "./Home.css";
@@ -6,7 +5,6 @@ import "./Home.css";
 export default function Homepage() {
   return (
     <>
-      <Navbar />
       <div className="d-flex align-items-center justify-content-between flex-wrap hand">
         <Container>
           <div className="col-lg-5 col-md-8 col-12 text-md-start text-center">

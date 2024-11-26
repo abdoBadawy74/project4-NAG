@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Axios } from "../../../Api/axios";
 import { CATEGORIES } from "../../../Api/Api";
-import NavBar from "../NavBar/NavBar";
 import { Container } from "react-bootstrap";
 import "./Categories.css";
 
@@ -41,7 +40,6 @@ export default function WebsiteCategories() {
 
   return (
     <>
-      <NavBar />
       <div className="cats py-5">
         <Container>
           <div className="d-flex align-items-stretch justify-content-center flex-wrap row-gap-2">
