@@ -1,7 +1,7 @@
 import { Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import "./Home.css";
-
+import Product from "../../../Components/Website/Product/Product"
 export default function Homepage() {
   return (
     <>
@@ -22,6 +22,7 @@ export default function Homepage() {
           </div>
         </Container>
       </div>
+        <Product/>
     </>
   );
 }
