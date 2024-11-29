@@ -5,6 +5,13 @@ import TitleSlice from "./../../../Helpers/TitleSlice";
 
 export default function Product(props) {
   const { product } = props;
+  const stars = Math.min(Math.round(product.rating), 5);
+  const goldStars = Array.from({ length: stars }).map((_, index) => (
+    <FontAwesomeIcon key={index} icon={solid} className="text-warning" />
+  ));
+  const emptyStars = Array.from({ length: 5 - stars }).map((_, index) => (
+    <FontAwesomeIcon key={index} icon={regular} />
+  ));
   return (
     <div className="col-lg-3 col-md-6 col-12 ">
       <div className="m-1 border rounded p-3 h-100">
@@ -20,21 +27,15 @@ export default function Product(props) {
                 Sale
               </p>
             )}
-            <img
-              src={product.images[0].image}
-              alt="product"
-              className="img-fluid"
-            />
+            <img src={product.images[0].image} alt="product" height={"200px"} />
           </div>
         </div>
         <div className="d-flex align-items-center justify-content-between mt-2">
           <div>
-            <FontAwesomeIcon icon={solid} className="text-warning" />
-            <FontAwesomeIcon icon={regular} className="text-warning" />
-            <FontAwesomeIcon icon={regular} className="text-warning" />
-            <FontAwesomeIcon icon={regular} className="text-warning" />
-            <FontAwesomeIcon icon={regular} className="text-warning" />
+            {goldStars}
+            {emptyStars}
           </div>
+
           <div className="d-flex align-items-center gap-3">
             <h5 className="m-0 text-primary">{product.discount}$</h5>
             <h6
