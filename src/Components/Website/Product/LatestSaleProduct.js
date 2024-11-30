@@ -12,6 +12,8 @@ export default function LatestSaleProduct() {
   useEffect(() => {
     Axios.get(`${LATEST_SALE_PRODUCTS}`).then((res) => {
       setProducts(res.data);
+    }).finally(() => {
+      setLoading(false);
     });
   }, []);
   console.log(products);

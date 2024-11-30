@@ -7,9 +7,11 @@ import { faCartShopping, faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./NavBar.css";
 import TitleSlice from "../../../Helpers/TitleSlice";
+import Skeleton from "react-loading-skeleton";
 
 export default function NavBar() {
   const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     Axios.get(`${CATEGORIES}`)
       .then((res) => {
@@ -18,6 +20,9 @@ export default function NavBar() {
       })
       .catch((err) => {
         console.log(err);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   }, []);
   console.log(categories);
@@ -66,7 +71,30 @@ export default function NavBar() {
 
         <div className="mt-3">
           <div className="d-flex justiy-content-start align-items-center gap-4">
-            {categoriesShow}
+            {loading ? (
+              <>
+                <div className="col-lg-1 col-md-2 col-4">
+                  <Skeleton height={10} width="100px" />
+                </div>
+                <div className="col-lg-1 col-md-2 col-4">
+                  <Skeleton height={10} width="100px" />
+                </div>
+                <div className="col-lg-1 col-md-2 col-4">
+                  <Skeleton height={10} width="100px" />
+                </div>
+                <div className="col-lg-1 col-md-2 col-4">
+                  <Skeleton height={10} width="100px" />
+                </div>
+                <div className="col-lg-1 col-md-2 col-4">
+                  <Skeleton height={10} width="100px" />
+                </div>
+                <div className="col-lg-1 col-md-2 col-4">
+                  <Skeleton height={10} width="100px" />
+                </div>
+              </>
+            ) : (
+              categoriesShow
+            )}
             <Link className="text-black category-link" to="/categories">
               Show All
             </Link>
