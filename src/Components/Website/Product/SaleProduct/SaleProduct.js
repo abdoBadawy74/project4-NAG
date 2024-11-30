@@ -1,9 +1,9 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar as regular } from "@fortawesome/free-regular-svg-icons";
 import { faStar as solid } from "@fortawesome/free-solid-svg-icons";
-import TitleSlice from "./../../../Helpers/TitleSlice";
+import TitleSlice from "../../../../Helpers/TitleSlice";
 
-export default function Product(props) {
+export default function SaleProduct(props) {
   const { product } = props;
   const stars = Math.min(Math.round(product.rating), 5);
   const goldStars = Array.from({ length: stars }).map((_, index) => (
@@ -13,11 +13,11 @@ export default function Product(props) {
     <FontAwesomeIcon key={index} icon={regular} />
   ));
   return (
-    <div className="col-lg-3 col-md-6 col-12 ">
+    <div className={`col-lg-${props.col} col-md-6 col-12`}>
       <div className="m-1 border rounded p-3 h-100">
         <div className="border-bottom pb-3">
           <p style={{ color: "gray" }}>{TitleSlice(product.title, 0, 15)}</p>
-          <p>{TitleSlice(product.title, 0, 30)}</p>
+          <p>{TitleSlice(product.description, 0, 30)}</p>
           <div className="position-relative px-5 py4">
             {product.discount && (
               <p
@@ -27,7 +27,12 @@ export default function Product(props) {
                 Sale
               </p>
             )}
-            <img src={product.images[0].image} alt="product" height={"200px"} />
+            <img
+              src={product.images[0].image}
+              alt="product"
+              height={"200px"}
+              width={"100%"}
+            />
           </div>
         </div>
         <div className="d-flex align-items-center justify-content-between mt-2">
@@ -47,7 +52,7 @@ export default function Product(props) {
           </div>
           <div className="border p-2 rounded">
             <img
-              src={require("../../../images/cart.png")}
+              src={require("../../../../images/cart.png")}
               alt="heart"
               width={"30px"}
             />

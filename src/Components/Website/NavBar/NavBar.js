@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./NavBar.css";
 import TitleSlice from "../../../Helpers/TitleSlice";
 import Skeleton from "react-loading-skeleton";
-import SkeletonComp from "../SkeletonComp";
+import SkeletonComp from "../Skeleton/SkeletonComp";
 
 export default function NavBar() {
   const [categories, setCategories] = useState([]);
