@@ -1,9 +1,9 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar as regular } from "@fortawesome/free-regular-svg-icons";
 import { faStar as solid } from "@fortawesome/free-solid-svg-icons";
-import TitleSlice from "./../../../Helpers/TitleSlice";
+import TitleSlice from "../../../../Helpers/TitleSlice";
 
-export default function Product(props) {
+export default function SaleProduct(props) {
   const { product } = props;
   const stars = Math.min(Math.round(product.rating), 5);
   const goldStars = Array.from({ length: stars }).map((_, index) => (
@@ -52,7 +52,7 @@ export default function Product(props) {
           </div>
           <div className="border p-2 rounded">
             <img
-              src={require("../../../images/cart.png")}
+              src={require("../../../../images/cart.png")}
               alt="heart"
               width={"30px"}
             />

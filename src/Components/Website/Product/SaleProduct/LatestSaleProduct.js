@@ -1,10 +1,9 @@
-import { Axios } from "../../../Api/axios";
+import { Axios } from "../../../../Api/axios";
 import React, { useEffect, useState } from "react";
-import { LATEST_SALE_PRODUCTS } from "../../../Api/Api";
-import Product from "./Product";
+import { LATEST_SALE_PRODUCTS } from "../../../../Api/Api";
+import SaleProduct from "./SaleProduct";
 import { Container } from "react-bootstrap";
-import Skeleton from "react-loading-skeleton";
-import SkeletonComp from "../SkeletonComp";
+import SkeletonComp from "../../SkeletonComp";
 
 export default function LatestSaleProduct() {
   const [products, setProducts] = useState([]);
@@ -21,7 +20,7 @@ export default function LatestSaleProduct() {
   }, []);
   console.log(products);
   const productShow = products.map((product) => (
-    <Product key={product.id} product={product} />
+    <SaleProduct key={product.id} product={product} />
   ));
   return (
     <Container>
