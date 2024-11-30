@@ -27,7 +27,7 @@ export default function Users() {
   // get all users
   useEffect(() => {
     setLoading(true);
-    Axios.get(`/${USERS}`)
+    Axios.get(`/${USERS}?limit=${limit}&page=${page}`)
       .then((res) => {
         console.log(res);
         setUsers(res.data.data);
@@ -37,7 +37,7 @@ export default function Users() {
         console.log(err);
       })
       .finally(() => setLoading(false));
-  }, []);
+  }, [page, limit]);
 
   const header = [
     {
@@ -77,6 +77,7 @@ export default function Users() {
       console.log(err);
     }
   }
+  console.log(limit);
 
   return (
     <div className="bg-white w-100 p-2">
