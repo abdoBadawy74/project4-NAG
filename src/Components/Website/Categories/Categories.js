@@ -4,9 +4,12 @@ import { CATEGORIES } from "../../../Api/Api";
 import { Container } from "react-bootstrap";
 import "./Categories.css";
 import TitleSlice from "../../../Helpers/TitleSlice";
+import Skeleton from "react-loading-skeleton";
+import SkeletonComp from "../SkeletonComp";
 
 export default function WebsiteCategories() {
   const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     Axios.get(`${CATEGORIES}`)
       .then((res) => {
@@ -15,6 +18,9 @@ export default function WebsiteCategories() {
       })
       .catch((err) => {
         console.log(err);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   }, []);
 
@@ -42,7 +48,16 @@ export default function WebsiteCategories() {
       <div className="cats py-5">
         <Container>
           <div className="d-flex align-items-stretch justify-content-center flex-wrap row-gap-2">
-            {categoriesShow}
+            {loading ? (
+              <SkeletonComp
+                count={"20"}
+                height="70px"
+                baseColor="white"
+                style="col-lg-2 col-md-6 col-12 mx-2"
+              />
+            ) : (
+              categoriesShow
+            )}
           </div>
         </Container>
       </div>

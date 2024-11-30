@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./NavBar.css";
 import TitleSlice from "../../../Helpers/TitleSlice";
 import Skeleton from "react-loading-skeleton";
+import SkeletonComp from "../SkeletonComp";
 
 export default function NavBar() {
   const [categories, setCategories] = useState([]);
@@ -73,24 +74,12 @@ export default function NavBar() {
           <div className="d-flex justiy-content-start align-items-center gap-4">
             {loading ? (
               <>
-                <div className="col-lg-1 col-md-2 col-4">
-                  <Skeleton height={10} width="100px" />
-                </div>
-                <div className="col-lg-1 col-md-2 col-4">
-                  <Skeleton height={10} width="100px" />
-                </div>
-                <div className="col-lg-1 col-md-2 col-4">
-                  <Skeleton height={10} width="100px" />
-                </div>
-                <div className="col-lg-1 col-md-2 col-4">
-                  <Skeleton height={10} width="100px" />
-                </div>
-                <div className="col-lg-1 col-md-2 col-4">
-                  <Skeleton height={10} width="100px" />
-                </div>
-                <div className="col-lg-1 col-md-2 col-4">
-                  <Skeleton height={10} width="100px" />
-                </div>
+                <SkeletonComp
+                  count={"8"}
+                  height="20px"
+                  baseColor="#eee"
+                  style="col-lg-1 col-md-2 col-4 mx-2"
+                />
               </>
             ) : (
               categoriesShow
