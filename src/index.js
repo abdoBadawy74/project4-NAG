@@ -6,6 +6,7 @@ import "./Css/Components/alerts.css";
 import "./Css/Components/Loading.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Pages/Auth/AuthOperations/Auth.css";
+import 'react-loading-skeleton/dist/skeleton.css'
 
 import App from "./App";
 import { BrowserRouter as Router } from "react-router-dom";
