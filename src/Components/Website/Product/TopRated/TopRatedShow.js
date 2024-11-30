@@ -1,7 +1,6 @@
 import { Axios } from "../../../../Api/axios";
 import React, { useEffect, useState } from "react";
-import { LATEST_SALE_PRODUCTS } from "../../../../Api/Api";
-import { Container } from "react-bootstrap";
+import { TOP_RATED } from "../../../../Api/Api";
 import SkeletonComp from "../../Skeleton/SkeletonComp";
 import TopRated from "./TopRated";
 
@@ -10,7 +9,7 @@ export default function TopRatedShow() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    Axios.get(`${LATEST_SALE_PRODUCTS}`)
+    Axios.get(`${TOP_RATED}`)
       .then((res) => {
         setProducts(res.data);
       })
@@ -31,9 +30,10 @@ export default function TopRatedShow() {
         {loading ? (
           <SkeletonComp
             count={"8"}
-            height="250px"
+            height="230px"
+            width="100%"
             baseColor="#eee"
-            style="col-lg-2 col-md-4 col-8 mx-2"
+            style="mx-4"
           />
         ) : (
           productShow

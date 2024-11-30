@@ -1,7 +1,6 @@
 import { Axios } from "../../../../Api/axios";
 import React, { useEffect, useState } from "react";
-import { LATEST_SALE_PRODUCTS } from "../../../../Api/Api";
-import { Container } from "react-bootstrap";
+import { LATEST } from "../../../../Api/Api";
 import SkeletonComp from "../../Skeleton/SkeletonComp";
 import SaleProduct from "../SaleProduct/SaleProduct";
 
@@ -10,7 +9,7 @@ export default function LatestProductsShow() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    Axios.get(`${LATEST_SALE_PRODUCTS}`)
+    Axios.get(`${LATEST}`)
       .then((res) => {
         setProducts(res.data);
       })
@@ -30,9 +29,9 @@ export default function LatestProductsShow() {
           {loading ? (
             <SkeletonComp
               count={"8"}
-              height="250px"
+              height="350px"
               baseColor="#eee"
-              style="col-lg-2 col-md-4 col-8 mx-2"
+              style="col-md-5 col-12 mx-2"
             />
           ) : (
             productShow

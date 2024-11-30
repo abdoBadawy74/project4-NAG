@@ -19,6 +19,8 @@ export const CATEGORY = "category";
 export const PRODUCTS = "products";
 export const PRODUCT = "product";
 export const LATEST_SALE_PRODUCTS = "latest-sale";
+export const LATEST = "latest"; 
+export const TOP_RATED = "top-rated";
 
 // Google Auth
 export const GOOGLE_CALLBACK = "auth/google/callback";
