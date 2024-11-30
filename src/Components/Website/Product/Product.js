@@ -27,7 +27,12 @@ export default function Product(props) {
                 Sale
               </p>
             )}
-            <img src={product.images[0].image} alt="product" height={"200px"} />
+            <img
+              src={product.images[0].image}
+              alt="product"
+              height={"200px"}
+              width={"100%"}
+            />
           </div>
         </div>
         <div className="d-flex align-items-center justify-content-between mt-2">
