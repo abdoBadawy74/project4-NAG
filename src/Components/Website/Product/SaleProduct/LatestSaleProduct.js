@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { LATEST_SALE_PRODUCTS } from "../../../../Api/Api";
 import SaleProduct from "./SaleProduct";
 import { Container } from "react-bootstrap";
-import SkeletonComp from "../../SkeletonComp";
+import SkeletonComp from "../../Skeleton/SkeletonComp";
 
 export default function LatestSaleProduct() {
   const [products, setProducts] = useState([]);
@@ -20,7 +20,7 @@ export default function LatestSaleProduct() {
   }, []);
   console.log(products);
   const productShow = products.map((product) => (
-    <SaleProduct key={product.id} product={product} />
+    <SaleProduct key={product.id} product={product} col="3" />
   ));
   return (
     <Container>

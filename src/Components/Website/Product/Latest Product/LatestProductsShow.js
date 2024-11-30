@@ -3,9 +3,9 @@ import React, { useEffect, useState } from "react";
 import { LATEST_SALE_PRODUCTS } from "../../../../Api/Api";
 import { Container } from "react-bootstrap";
 import SkeletonComp from "../../Skeleton/SkeletonComp";
-import TopRated from "./TopRated";
+import SaleProduct from "../SaleProduct/SaleProduct";
 
-export default function TopRatedShow() {
+export default function LatestProductsShow() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -20,24 +20,24 @@ export default function TopRatedShow() {
   }, []);
   console.log(products);
   const productShow = products.map((product) => (
-    <TopRated key={product.id} product={product} />
+    <SaleProduct key={product.id} product={product} col="6" />
   ));
   return (
-    <div className="col-md-6 col-12 border border-primary mb-4 rounded overflow-hidden">
-      <h1 className="text-center mb-2 py-2 text-white bg-primary fw-bold">
-        Top Rated
-      </h1>
-      <div className="d-flex flex-column justify-content-center flex-wrap my-5 row-gap-3 ">
-        {loading ? (
-          <SkeletonComp
-            count={"8"}
-            height="250px"
-            baseColor="#eee"
-            style="col-lg-2 col-md-4 col-8 mx-2"
-          />
-        ) : (
-          productShow
-        )}
+    <div className="col-md-6 col-12">
+      <div className="ms-md-3">
+        <h1 className="fw-bold">Latest Products</h1>
+        <div className="d-flex align-items-stretch justify-content-center flex-wrap my-5 row-gap-3 ">
+          {loading ? (
+            <SkeletonComp
+              count={"8"}
+              height="250px"
+              baseColor="#eee"
+              style="col-lg-2 col-md-4 col-8 mx-2"
+            />
+          ) : (
+            productShow
+          )}
+        </div>
       </div>
     </div>
   );

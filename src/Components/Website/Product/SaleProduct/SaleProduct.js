@@ -13,7 +13,7 @@ export default function SaleProduct(props) {
     <FontAwesomeIcon key={index} icon={regular} />
   ));
   return (
-    <div className="col-lg-3 col-md-6 col-12 ">
+    <div className={`col-lg-${props.col} col-md-6 col-12`}>
       <div className="m-1 border rounded p-3 h-100">
         <div className="border-bottom pb-3">
           <p style={{ color: "gray" }}>{TitleSlice(product.title, 0, 15)}</p>
