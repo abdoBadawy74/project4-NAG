@@ -17,7 +17,7 @@ export default function Product(props) {
       <div className="m-1 border rounded p-3 h-100">
         <div className="border-bottom pb-3">
           <p style={{ color: "gray" }}>{TitleSlice(product.title, 0, 15)}</p>
-          <p>{TitleSlice(product.title, 0, 30)}</p>
+          <p>{TitleSlice(product.description, 0, 30)}</p>
           <div className="position-relative px-5 py4">
             {product.discount && (
               <p
