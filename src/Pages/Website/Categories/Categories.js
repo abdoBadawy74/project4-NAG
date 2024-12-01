@@ -4,8 +4,7 @@ import { CATEGORIES } from "../../../Api/Api";
 import { Container } from "react-bootstrap";
 import "./Categories.css";
 import TitleSlice from "../../../Helpers/TitleSlice";
-import Skeleton from "react-loading-skeleton";
-import SkeletonComp from "../Skeleton/SkeletonComp";
+import SkeletonComp from "../../../Components/Website/Skeleton/SkeletonComp";
 
 export default function WebsiteCategories() {
   const [categories, setCategories] = useState([]);

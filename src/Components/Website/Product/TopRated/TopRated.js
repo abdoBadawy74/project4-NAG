@@ -2,6 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar as regular } from "@fortawesome/free-regular-svg-icons";
 import { faStar as solid } from "@fortawesome/free-solid-svg-icons";
 import TitleSlice from "../../../../Helpers/TitleSlice";
+import { NavLink } from "react-router-dom";
 
 export default function TopRated(props) {
   const { product } = props;
@@ -13,7 +14,10 @@ export default function TopRated(props) {
     <FontAwesomeIcon key={index} icon={regular} />
   ));
   return (
-    <div className="d-flex flex-wrap justify-content-center gap-3 gap-md-0 border-bottom p-3">
+    <NavLink
+      to={`/product/${product.id}`}
+      className="d-flex flex-wrap justify-content-center gap-3 gap-md-0 border-bottom p-3"
+    >
       <img
         src={product.images[0].image}
         alt="product"
@@ -25,7 +29,7 @@ export default function TopRated(props) {
           <p className="m-0" style={{ color: "gray" }}>
             {TitleSlice(product.title, 0, 15)}
           </p>
-          <p>{TitleSlice(product.description, 0, 30)}</p>
+          <p className="text-black">{TitleSlice(product.description, 0, 30)}</p>
         </div>
 
         <div className="d-flex align-items-center justify-content-between  mt-2">
@@ -52,6 +56,6 @@ export default function TopRated(props) {
           </div>
         </div>
       </div>
-    </div>
+    </NavLink>
   );
 }

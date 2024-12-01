@@ -11,15 +11,16 @@ import Dashboard from "./Pages/Dashboard/Dashboard";
 import Users from "./Pages/Dashboard/User/Users";
 import User from "./Pages/Dashboard/User/User";
 import AddUser from "./Pages/Dashboard/User/AddUser";
-import Categories from "./Pages/Dashboard/category/Categories";
+import Categories from "./Pages/Dashboard/category/Categories"
 import Category from "./Pages/Dashboard/category/Category";
 import AddCategory from "./Pages/Dashboard/category/AddCategory";
 import Products from "./Pages/Dashboard/product/Products";
 import AddProducts from "./Pages/Dashboard/product/AddProduct";
 import Writer from "./Pages/Dashboard/Writer";
 import UpdateProduct from "./Pages/Dashboard/product/Product";
-import WebsiteCategories from "./Components/Website/Categories/Categories";
+import WebsiteCategories from "./Pages/Website/Categories/Categories";
 import Website from "./Components/Website/Website";
+import SingleProduct from "./Pages/Website/SingleProduct/SingleProduct";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
         <Route element={<Website />}>
           <Route path="/" element={<Homepage />} />
           <Route path="/categories" element={<WebsiteCategories />} />
+          <Route path="/product/:id" element={<SingleProduct />} />
         </Route>
         <Route element={<RequireBack />}>
           <Route path="/login" element={<Login />} />
