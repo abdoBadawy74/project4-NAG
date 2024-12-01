@@ -30,7 +30,7 @@ export default function SingleProduct() {
         console.log(err);
       })
       .finally(() => {
-        // setLoading(false);
+        setLoading(false);
       });
   }, []);
   console.log(product);
