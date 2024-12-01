@@ -2,6 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar as regular } from "@fortawesome/free-regular-svg-icons";
 import { faStar as solid } from "@fortawesome/free-solid-svg-icons";
 import TitleSlice from "../../../../Helpers/TitleSlice";
+import { NavLink } from "react-router-dom";
 
 export default function SaleProduct(props) {
   const { product } = props;
@@ -13,11 +14,11 @@ export default function SaleProduct(props) {
     <FontAwesomeIcon key={index} icon={regular} />
   ));
   return (
-    <div className={`col-lg-${props.col} col-md-6 col-12`}>
+    <NavLink to={`/product/${product.id}`} className={`col-lg-${props.col} col-md-6 col-12`}>
       <div className="m-1 border rounded p-3 h-100">
         <div className="border-bottom pb-3">
           <p style={{ color: "gray" }}>{TitleSlice(product.title, 0, 15)}</p>
-          <p>{TitleSlice(product.description, 0, 30)}</p>
+          <p className="text-black">{TitleSlice(product.description, 0, 30)}</p>
           <div className="position-relative px-5 py4">
             {product.discount && (
               <p
@@ -59,6 +60,6 @@ export default function SaleProduct(props) {
           </div>
         </div>
       </div>
-    </div>
+    </NavLink>
   );
 }
