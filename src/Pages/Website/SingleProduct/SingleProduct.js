@@ -43,6 +43,12 @@ export default function SingleProduct() {
     <FontAwesomeIcon key={index} icon={regular} />
   ));
 
+  const handleSave = () => {
+    const getItems = JSON.parse(localStorage.getItem("product")) || [];
+    getItems.push(product);
+    localStorage.setItem("product", JSON.stringify(getItems));
+  };
+
   return (
     <Container className="mt-5">
       <div className="d-flex align-ite  flex-wrap">
@@ -96,7 +102,7 @@ export default function SingleProduct() {
                         {product.price}$
                       </h6>
                     </div>
-                    <div className="border p-2 rounded">
+                    <div onClick={handleSave} className="border p-2 rounded">
                       <img
                         src={require("../../../images/cart.png")}
                         alt="heart"
