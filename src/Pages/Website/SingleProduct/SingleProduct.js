@@ -49,11 +49,24 @@ export default function SingleProduct() {
 
   const handleSave = () => {
     const getItems = JSON.parse(localStorage.getItem("product")) || [];
-    getItems.push(product);
+
+    const check = getItems.findIndex((item) => item.id === product.id);
+    console.log(getItems[check]);
+
+    if (check !== -1) {
+      if (getItems[check].count) {
+        getItems[check].count += count;
+      } else {
+        getItems[check].count = 2;
+      }
+    } else {
+      getItems.push(product);
+    }
+
     localStorage.setItem("product", JSON.stringify(getItems));
     setIsChange((prev) => !prev);
   };
-  console.log(count);
+  // console.log(count);
 
   return (
     <Container className="mt-5">
