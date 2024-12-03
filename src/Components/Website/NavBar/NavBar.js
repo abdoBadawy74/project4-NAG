@@ -3,7 +3,11 @@ import { Axios } from "../../../Api/axios";
 import { CATEGORIES } from "../../../Api/Api";
 import { Button, Container, Form, Modal } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { faCartShopping, faUser } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCartShopping,
+  faUser,
+  faXmark,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./NavBar.css";
 import TitleSlice from "../../../Helpers/TitleSlice";
@@ -39,11 +43,29 @@ export default function NavBar() {
     setProducts(getProducts);
   }, [isChange]);
 
+  const handleDelete = (id) => {
+    const filteredProduct = products.filter((product) => product.id !== id);
+    setProducts(filteredProduct);
+    localStorage.setItem("product", JSON.stringify(filteredProduct));
+  };
+
   const cartShow = products.map((product) => (
     <div
       key={product.id}
-      className="d-flex align-items-center justify-content-between my-2 border-bottom pb-2"
+      className="d-flex align-items-center justify-content-between my-2 border-bottom pb-2 position-relative"
     >
+      <div
+        className="position-absolute  end-0 rounded-circle d-flex align-items-center justify-content-center bg-danger text-white"
+        style={{
+          width: "20px",
+          height: "20px",
+          top: "-5px",
+          cursor: "pointer",
+        }}
+        onClick={() => handleDelete(product.id)}
+      >
+        <FontAwesomeIcon icon={faXmark} width={10} />
+      </div>
       <img src={product.images[0].image} alt="product" width="50px" />
       <div>
         <p className="m-0">{product.title}</p>
