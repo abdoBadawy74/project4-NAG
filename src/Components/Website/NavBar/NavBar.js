@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Axios } from "../../../Api/axios";
 import { CATEGORIES } from "../../../Api/Api";
 import { Button, Container, Form, Modal } from "react-bootstrap";
@@ -8,15 +8,18 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./NavBar.css";
 import TitleSlice from "../../../Helpers/TitleSlice";
 import SkeletonComp from "../Skeleton/SkeletonComp";
+import { Cart } from "../../../Context/CartChangerContext";
 
 export default function NavBar() {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [show, setShow] = useState(false);
   const [products, setProducts] = useState([]);
+  const { isChange } = useContext(Cart);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
   useEffect(() => {
     Axios.get(`${CATEGORIES}`)
       .then((res) => {
@@ -34,12 +37,12 @@ export default function NavBar() {
   useEffect(() => {
     const getProducts = JSON.parse(localStorage.getItem("product")) || [];
     setProducts(getProducts);
-  }, []);
+  }, [isChange]);
 
   const cartShow = products.map((product) => (
     <div
       key={product.id}
-      className="d-flex align-items-center justify-content-between"
+      className="d-flex align-items-center justify-content-between my-2 border-bottom pb-2"
     >
       <img src={product.images[0].image} alt="product" width="50px" />
       <div>
@@ -83,7 +86,7 @@ export default function NavBar() {
             Close
           </Button>
           <Button variant="primary" onClick={handleClose}>
-           Checkout
+            Checkout
           </Button>
         </Modal.Footer>
       </Modal>

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
 import ImageGallery from "react-image-gallery";
 import { useParams } from "react-router-dom";
@@ -8,12 +8,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar as regular } from "@fortawesome/free-regular-svg-icons";
 import { faStar as solid } from "@fortawesome/free-solid-svg-icons";
 import SkeletonComp from "../../../Components/Website/Skeleton/SkeletonComp";
+import { Cart } from "../../../Context/CartChangerContext";
 
 export default function SingleProduct() {
   const [product, setProduct] = useState({});
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(true);
   const { id } = useParams();
+  const {setIsChange} = useContext(Cart);
 
   useEffect(() => {
     Axios.get(`${PRODUCT}/${id}`)
@@ -47,6 +49,7 @@ export default function SingleProduct() {
     const getItems = JSON.parse(localStorage.getItem("product")) || [];
     getItems.push(product);
     localStorage.setItem("product", JSON.stringify(getItems));
+    setIsChange((prev) => !prev);
   };
 
   return (
