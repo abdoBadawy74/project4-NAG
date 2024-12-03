@@ -57,9 +57,12 @@ export default function SingleProduct() {
       if (getItems[check].count) {
         getItems[check].count += count;
       } else {
-        getItems[check].count = 2;
+        getItems[check].count = count;
       }
     } else {
+      if(count > 1){
+        product.count = count;
+      }
       getItems.push(product);
     }
 
