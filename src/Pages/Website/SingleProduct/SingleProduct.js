@@ -9,13 +9,15 @@ import { faStar as regular } from "@fortawesome/free-regular-svg-icons";
 import { faStar as solid } from "@fortawesome/free-solid-svg-icons";
 import SkeletonComp from "../../../Components/Website/Skeleton/SkeletonComp";
 import { Cart } from "../../../Context/CartChangerContext";
+import PlusMinusBtn from "../../../Components/Website/Btns/PlusMinusBtn";
 
 export default function SingleProduct() {
   const [product, setProduct] = useState({});
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(true);
   const { id } = useParams();
-  const {setIsChange} = useContext(Cart);
+  const { setIsChange } = useContext(Cart);
+  const [count, setCount] = useState(1);
 
   useEffect(() => {
     Axios.get(`${PRODUCT}/${id}`)
@@ -51,6 +53,7 @@ export default function SingleProduct() {
     localStorage.setItem("product", JSON.stringify(getItems));
     setIsChange((prev) => !prev);
   };
+  console.log(count);
 
   return (
     <Container className="mt-5">
@@ -105,6 +108,7 @@ export default function SingleProduct() {
                         {product.price}$
                       </h6>
                     </div>
+                    <PlusMinusBtn setCount={(data) => setCount(data)} />
                     <div onClick={handleSave} className="border p-2 rounded">
                       <img
                         src={require("../../../images/cart.png")}
