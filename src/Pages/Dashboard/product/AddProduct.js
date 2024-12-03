@@ -13,6 +13,7 @@ export default function AddProducts() {
     price: "",
     discount: "",
     About: "",
+    stock: "",
   });
 
   const dummyForm = {
@@ -22,6 +23,7 @@ export default function AddProducts() {
     price: 222,
     discount: 0,
     About: "About",
+    stock: 0,
   };
 
   const nav = useNavigate();
@@ -259,6 +261,18 @@ export default function AddProducts() {
             placeholder="about..."
             value={form.About}
             name="About"
+            onChange={handleChange}
+            disabled={!sent}
+          />
+        </Form.Group>
+
+        <Form.Group className="mb-3" controlId="exampleForm.ControlInput5">
+          <Form.Label>stock</Form.Label>
+          <Form.Control
+            type="number"
+            placeholder="stock..."
+            value={form.stock}
+            name="stock"
             onChange={handleChange}
             disabled={!sent}
           />
