@@ -285,6 +285,17 @@ export default function UpdateProduct() {
           />
         </Form.Group>
 
+        <Form.Group className="mb-3" controlId="exampleForm.ControlInput5">
+          <Form.Label>stock</Form.Label>
+          <Form.Control
+            type="number"
+            placeholder="stock..."
+            value={form.stock}
+            name="stock"
+            onChange={handleChange}
+          />
+        </Form.Group>
+
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput6">
           <Form.Label>images</Form.Label>
           <Form.Control
