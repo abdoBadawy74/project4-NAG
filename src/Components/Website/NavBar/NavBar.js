@@ -13,6 +13,7 @@ import "./NavBar.css";
 import TitleSlice from "../../../Helpers/TitleSlice";
 import SkeletonComp from "../Skeleton/SkeletonComp";
 import { Cart } from "../../../Context/CartChangerContext";
+import PlusMinusBtn from "../Btns/PlusMinusBtn";
 
 export default function NavBar() {
   const [categories, setCategories] = useState([]);
@@ -20,6 +21,7 @@ export default function NavBar() {
   const [show, setShow] = useState(false);
   const [products, setProducts] = useState([]);
   const { isChange } = useContext(Cart);
+  const [count, setCount] = useState(1);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -49,10 +51,17 @@ export default function NavBar() {
     localStorage.setItem("product", JSON.stringify(filteredProduct));
   };
 
+  const changeCount = (id, btnCount) => {
+    const getProducts = JSON.parse(localStorage.getItem("product")) || [];
+    const check = getProducts.find((product) => product.id === id);
+    check.count = btnCount;
+    localStorage.setItem("product", JSON.stringify(getProducts));
+  };
+
   const cartShow = products.map((product) => (
     <div
       key={product.id}
-      className="d-flex align-items-center justify-content-between my-2 border-bottom pb-2 position-relative"
+      className=" my-2 border-bottom pb-2 position-relative"
     >
       <div
         className="position-absolute  end-0 rounded-circle d-flex align-items-center justify-content-center bg-danger text-white"
@@ -66,22 +75,30 @@ export default function NavBar() {
       >
         <FontAwesomeIcon icon={faXmark} width={10} />
       </div>
-      <img src={product.images[0].image} alt="product" width="50px" />
-      <div>
-        <p className="m-0">{product.title}</p>
-        <p className="m-0">
-          price before:{" "}
-          <span
-            style={{
-              textDecoration: "line-through",
-              color: "grey",
-            }}
-          >
-            {product.price}$
-          </span>{" "}
-        </p>
+      <div className="d-flex align-items-center justify-content-between my-2 ">
+        <img src={product.images[0].image} alt="product" width="50px" />
+        <div>
+          <p className="m-0">{product.title}</p>
+          <p className="m-0">
+            price before:{" "}
+            <span
+              style={{
+                textDecoration: "line-through",
+                color: "grey",
+              }}
+            >
+              {product.price}$
+            </span>{" "}
+          </p>
+        </div>
+        <p className="m-0 text-primary fw-bold">{product.discount}$</p>
       </div>
-      <p className="m-0 text-primary fw-bold">{product.discount}$</p>
+      <PlusMinusBtn
+        setCount={(data) => setCount(data)}
+        count={product.count || 0}
+        id={product.id}
+        changeCount={changeCount}
+      />
     </div>
   ));
 

@@ -7,7 +7,16 @@ export default function PlusMinusBtn(props) {
 
   useEffect(() => {
     props.setCount(btn);
+    if (props.changeCount) {
+      props.changeCount(props.id, btn);
+    }
   }, [btn]);
+
+  useEffect(() => {
+    if (props.count) {
+      setBtn(props.count);
+    }
+  }, [props.count]);
 
   return (
     <div className="input-group d-flex align-items-center gap-2">
