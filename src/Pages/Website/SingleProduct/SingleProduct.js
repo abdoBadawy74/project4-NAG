@@ -3,7 +3,7 @@ import { Container } from "react-bootstrap";
 import ImageGallery from "react-image-gallery";
 import { useParams } from "react-router-dom";
 import { Axios } from "../../../Api/axios";
-import { PRODUCT } from "../../../Api/Api";
+import { CART, PRODUCT } from "../../../Api/Api";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar as regular } from "@fortawesome/free-regular-svg-icons";
 import { faStar as solid } from "@fortawesome/free-solid-svg-icons";
@@ -18,6 +18,8 @@ export default function SingleProduct() {
   const { id } = useParams();
   const { setIsChange } = useContext(Cart);
   const [count, setCount] = useState(1);
+  const [error, setError] = useState("");
+  const [loadingCart, setLoadingCart] = useState(false);
 
   useEffect(() => {
     Axios.get(`${PRODUCT}/${id}`)
@@ -38,7 +40,52 @@ export default function SingleProduct() {
       });
   }, []);
 
-  const checkStock = () => {};
+  const checkStock = async () => {
+    try {
+      setLoadingCart(true);
+      const getItems = JSON.parse(localStorage.getItem("product")) || [];
+      const productCount = getItems.filter((item) => item.id === product.id)[0]
+        ?.count;
+      const res = await Axios.post(`${CART}/check`, {
+        product_id: product.id,
+        count: count + (productCount ? productCount : 0),
+      });
+      console.log(res);
+      setLoadingCart(false);
+      return true;
+    } catch (err) {
+      console.log(err);
+      setLoadingCart(false);
+      return false;
+    } finally {
+    }
+  };
+
+  const handleSave = () => {
+    const state = checkStock();
+    if (state) {
+      const getItems = JSON.parse(localStorage.getItem("product")) || [];
+
+      const check = getItems.findIndex((item) => item.id === product.id);
+      console.log(getItems[check]);
+
+      if (check !== -1) {
+        if (getItems[check].count) {
+          getItems[check].count += count;
+        } else {
+          getItems[check].count = count;
+        }
+      } else {
+        if (count > 1) {
+          product.count = count;
+        }
+        getItems.push(product);
+      }
+
+      localStorage.setItem("product", JSON.stringify(getItems));
+      setIsChange((prev) => !prev);
+    }
+  };
 
   const stars = Math.min(Math.round(product.rating), 5);
   const goldStars = Array.from({ length: stars }).map((_, index) => (
@@ -47,30 +94,6 @@ export default function SingleProduct() {
   const emptyStars = Array.from({ length: 5 - stars }).map((_, index) => (
     <FontAwesomeIcon key={index} icon={regular} />
   ));
-
-  const handleSave = () => {
-    const getItems = JSON.parse(localStorage.getItem("product")) || [];
-
-    const check = getItems.findIndex((item) => item.id === product.id);
-    console.log(getItems[check]);
-
-    if (check !== -1) {
-      if (getItems[check].count) {
-        getItems[check].count += count;
-      } else {
-        getItems[check].count = count;
-      }
-    } else {
-      if (count > 1) {
-        product.count = count;
-      }
-      getItems.push(product);
-    }
-
-    localStorage.setItem("product", JSON.stringify(getItems));
-    setIsChange((prev) => !prev);
-  };
-  // console.log(count);
 
   return (
     <Container className="mt-5">
@@ -130,11 +153,15 @@ export default function SingleProduct() {
                     <div className="d-flex gap-2">
                       <PlusMinusBtn setCount={(data) => setCount(data)} />
                       <div onClick={handleSave} className="border p-2 rounded">
-                        <img
-                          src={require("../../../images/cart.png")}
-                          alt="heart"
-                          width={"30px"}
-                        />
+                        {loadingCart ? (
+                          "loading..."
+                        ) : (
+                          <img
+                            src={require("../../../images/cart.png")}
+                            alt="heart"
+                            width={"30px"}
+                          />
+                        )}
                       </div>
                     </div>
                   </div>
