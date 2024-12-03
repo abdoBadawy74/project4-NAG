@@ -7,13 +7,13 @@ import { faCartShopping, faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./NavBar.css";
 import TitleSlice from "../../../Helpers/TitleSlice";
-import Skeleton from "react-loading-skeleton";
 import SkeletonComp from "../Skeleton/SkeletonComp";
 
 export default function NavBar() {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [show, setShow] = useState(false);
+  const [products, setProducts] = useState([]);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -30,7 +30,35 @@ export default function NavBar() {
         setLoading(false);
       });
   }, []);
-  console.log(categories);
+
+  useEffect(() => {
+    const getProducts = JSON.parse(localStorage.getItem("product")) || [];
+    setProducts(getProducts);
+  }, []);
+
+  const cartShow = products.map((product) => (
+    <div
+      key={product.id}
+      className="d-flex align-items-center justify-content-between"
+    >
+      <img src={product.images[0].image} alt="product" width="50px" />
+      <div>
+        <p className="m-0">{product.title}</p>
+        <p className="m-0">
+          price before:{" "}
+          <span
+            style={{
+              textDecoration: "line-through",
+              color: "grey",
+            }}
+          >
+            {product.price}$
+          </span>{" "}
+        </p>
+      </div>
+      <p className="m-0 text-primary fw-bold">{product.discount}$</p>
+    </div>
+  ));
 
   const categoriesShow = categories.slice(-8).map((category) => (
     <p key={category.id} className="m-0">
@@ -49,15 +77,14 @@ export default function NavBar() {
         <Modal.Header closeButton>
           <Modal.Title>Cart</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
-          I will not close if you click outside me. Do not even try to press
-          escape key.
-        </Modal.Body>
+        <Modal.Body>{cartShow}</Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary"  onClick={handleClose}>Understood</Button>
+          <Button variant="primary" onClick={handleClose}>
+           Checkout
+          </Button>
         </Modal.Footer>
       </Modal>
       <nav className="py-3">
@@ -83,7 +110,13 @@ export default function NavBar() {
             </div>
 
             <div className="col-3 d-flex align-items-center justify-content-end gap-4 order-md-3 order-1">
-              <div onClick={handleShow} className="text-secondary">
+              <div
+                onClick={handleShow}
+                className="text-secondary"
+                style={{
+                  cursor: "pointer",
+                }}
+              >
                 <FontAwesomeIcon icon={faCartShopping} />
               </div>
               <Link
@@ -96,7 +129,7 @@ export default function NavBar() {
           </div>
 
           <div className="mt-3">
-            <div className="d-flex justiy-content-start align-items-center gap-4">
+            <div className="d-flex justiy-content-start align-items-center gap-4 flex-wrap">
               {loading ? (
                 <>
                   <SkeletonComp
